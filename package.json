@@ -1,0 +1,35 @@
+{
+  "name": "@writetome51/open-array",
+  "version": "1.0.2",
+  "description": "a typescript class with clear method names for manipulating arrays",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/writetome51/open-array.git"
+  },
+  "keywords": [
+    "array",
+    "manipulation",
+    "typescript",
+    "classes"
+  ],
+  "author": "Steve Thompson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/writetome51/open-array/issues"
+  },
+  "homepage": "https://github.com/writetome51/open-array#readme",
+  "dependencies": {
+    "basic-data-handling": "latest",
+    "open-data-container": "latest",
+    "intuitive-string-handlers": "latest",
+    "batch-getter-setter": "latest",
+    "@writetome51/array-append-prepend": "latest",
+    "@writetome51/array-non-modifying-getters-basic": "latest",
+    "@writetome51/adjacent-to-value-info-interface": "latest",
+    "@writetome51/object-factory": "latest"
+  }
+}

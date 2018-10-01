@@ -1,16 +1,9 @@
-import { ObjectFactory } from '../../ObjectFactory/ObjectFactory';
+import { ObjectFactory } from '@writetome51/object-factory/ObjectFactory';
 import { OpenArray } from '../OpenArray';
 
 
-let arr = ObjectFactory.getInstance(
-	OpenArray, [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
-);
+let arr = ObjectFactory.getInstance(OpenArray);
 
-arr.remove_allAfterLast(4).remove_allBeforeFirst(3);
-arr.prepend_one(100).append_one(100).replace_allOf(8, 8 * 2);
-arr = arr.replace_adjacentAt(3, ['hello', 'what?']).export();
-
-console.log(arr);
 
 
 /***

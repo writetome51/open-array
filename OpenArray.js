@@ -23,7 +23,7 @@ var OpenArrayItemReplacer_1 = require("@writetome51/open-array-item-replacer/Ope
 var OpenArrayGetterConverter_1 = require("@writetome51/open-array-getter-converter/OpenArrayGetterConverter");
 var OpenArrayItemGetterRemover_1 = require("@writetome51/open-array-item-getter-remover/OpenArrayItemGetterRemover");
 var OpenArrayFilter_1 = require("@writetome51/open-array-filter/OpenArrayFilter");
-var array_append_prepend_1 = require("@writetome51/array-append-prepend");
+var append_prepend_1 = require("@writetome51/array-append-prepend/append-prepend");
 /**************
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
@@ -75,22 +75,43 @@ var OpenArray = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(OpenArray.prototype, "append", {
-        // becomes this.append(values)
+        // this.append(values)
         get: function () {
             var _this = this;
             return function (values) {
-                array_append_prepend_1.append(values, _this.data);
+                _this.returnThis_after(append_prepend_1.append(values, _this.data));
             };
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(OpenArray.prototype, "prepend", {
-        // becomes this.prepend(values)
+        // this.prepend(values)
         get: function () {
             var _this = this;
             return function (values) {
-                array_append_prepend_1.prepend(values, _this.data);
+                _this.returnThis_after(append_prepend_1.prepend(values, _this.data));
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OpenArray.prototype, "forEach", {
+        // iterationFunction = function(currentItem, currentIndex, entireArray){...}
+        get: function () {
+            var _this = this;
+            return function (iterationFunction) {
+                _this.returnThis_after(_this.data.forEach(iterationFunction));
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OpenArray.prototype, "toString", {
+        get: function () {
+            var _this = this;
+            return function () {
+                return _this.data.toString();
             };
         },
         enumerable: true,

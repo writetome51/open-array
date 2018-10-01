@@ -23,13 +23,16 @@
   },
   "homepage": "https://github.com/writetome51/open-array#readme",
   "dependencies": {
-    "basic-data-handling": "latest",
-    "open-data-container": "latest",
-    "intuitive-string-handlers": "latest",
-    "batch-getter-setter": "latest",
+    "@writetome51/open-array-item-remover": "latest",
+    "@writetome51/open-array-content": "latest",
+    "@writetome51/open-array-item-getter": "latest",
+    "@writetome51/open-array-item-inserter": "latest",
+    "@writetome51/open-array-sorter": "latest",
+    "@writetome51/open-array-item-replacer": "latest",
+    "@writetome51/open-array-getter-converter": "latest",
+    "@writetome51/open-array-item-getter-remover": "latest",
+    "@writetome51/open-array-filter": "latest",
     "@writetome51/array-append-prepend": "latest",
-    "@writetome51/array-non-modifying-getters-basic": "latest",
-    "@writetome51/adjacent-to-value-info-interface": "latest",
     "@writetome51/object-factory": "latest"
   }
 }

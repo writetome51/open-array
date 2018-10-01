@@ -10,7 +10,7 @@ import { OpenArrayGetterConverter }
 import { OpenArrayItemGetterRemover } 
 	from '@writetome51/open-array-item-getter-remover/OpenArrayItemGetterRemover';
 import { OpenArrayFilter } from '@writetome51/open-array-filter/OpenArrayFilter';
-import { append, prepend} from '@writetome51/array-append-prepend';
+import { append, prepend} from '@writetome51/array-append-prepend/append-prepend';
 
 
 /**************
@@ -68,20 +68,42 @@ export class OpenArray extends OpenArrayContent {
 		);
 	}
 
-	// becomes this.append(values)
+
+	// this.append(values)
 	get append(){
 		return (values: any[])=>{
-			append(values, this.data);
+			this.returnThis_after(append(values, this.data));
 		};
 	}
 
 	
-	// becomes this.prepend(values)
+	// this.prepend(values)
 	get prepend(){
 		return (values: any[])=>{
-			prepend(values, this.data);
+			this.returnThis_after(prepend(values, this.data));
 		};
 	}
+
+	
+	// iterationFunction = function(currentItem, currentIndex, entireArray){...}
+	get forEach(){
+		return (iterationFunction)=>{
+			this.returnThis_after(this.data.forEach(iterationFunction));
+		};
+	}
+
+
+	get toString(){
+		return ()=>{
+			return this.data.toString();
+		};
+	}
+
+
+	// this.copy -- returns independent copy of this.
+	//get copy(){
+	//	return ObjectFactory.getInstance(OpenArray, [this.data]);
+	//}
 
 
 }

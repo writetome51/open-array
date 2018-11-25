@@ -1,11 +1,11 @@
-The main feature of this package is the OpenArray class.  All the other classes were
-created mainly to act as dependencies for OpenArray to use.
+The main feature of this package is the PublicArray class.  All the other classes were
+created mainly to act as dependencies for PublicArray to use.
 
-The main reason you would use OpenArray is if you hate JavaScript's built-in Array
-methods, like .slice(), .splice(), .push(), and .shift().  OpenArray has much clearer
+The main reason you would use PublicArray is if you hate JavaScript's built-in Array
+methods, like .slice(), .splice(), .push(), and .shift().  PublicArray has much clearer
 and expressive method names.  Examples:
 
-let arr = ObjectFactory.getInstance(OpenArray, [ [1,2,3,4,5,6] ]);
+let arr = ObjectFactory.getInstance(PublicArray, [ [1,2,3,4,5,6] ]);
 
 arr.remove.tail(2); // arr.data is now [1,2,3,4]
 
@@ -15,43 +15,43 @@ if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,3,4]
 
 arr.append([100,200,300]); // arr.data is now [10,3,4,100,200,300]
 
-To actually see or get the array itself, you must access OpenArray's data property:
+To actually see or get the array itself, you must access PublicArray's data property:
 
 console.log(arr.data); // logs '[10,3,4,100,200,300]'
 
-OpenArray has several injected dependencies, so you need to use ObjectFactory (which is
+PublicArray has several injected dependencies, so you need to use ObjectFactory (which is
 included by npm) to instantiate it:
 
-let arr = ObjectFactory.getInstance(OpenArray, [ [1,2,3,4,5,6] ]);
+let arr = ObjectFactory.getInstance(PublicArray, [ [1,2,3,4,5,6] ]);
 
-Aside from 'data', OpenArray has these public properties, which are all instances of the
+Aside from 'data', PublicArray has these public properties, which are all instances of the
 other classes in this package:
 
-'filter':  instance of OpenArrayFilter
+'filter':  instance of PublicArrayFilter
 
-'getConverted':  instance of OpenArrayGetterConverter
+'getConverted':  instance of PublicArrayGetterConverter
 
-'get':  instance of OpenArrayItemGetter
+'get':  instance of PublicArrayItemGetter
 
-'getAndRemove':  instance of OpenArrayItemGetterRemover
+'getAndRemove':  instance of PublicArrayItemGetterRemover
 
-'insert':  instance of OpenArrayItemInserter
+'insert':  instance of PublicArrayItemInserter
 
-'remove':  instance of OpenArrayItemRemover
+'remove':  instance of PublicArrayItemRemover
 
-'replace':  instance of OpenArrayItemReplacer
+'replace':  instance of PublicArrayItemReplacer
 
-'sort':  instance of OpenArraySorter
+'sort':  instance of PublicArraySorter
 
 To know what methods each of those properties offer, look at the code of each class.
 
-OpenArray also has these 2 methods:
+PublicArray also has these 2 methods:
 
 .append(values)
 
 .prepend(values)
 
-Also, OpenArray inherits from OpenArrayContent, which has many of the basic properties
+Also, PublicArray inherits from PublicArrayContent, which has many of the basic properties
 and methods you need to understand the array's contents, such as:
 
 length, isEmpty, notEmpty, has(value), hasAll(values), hasAny(values), startsWith(values),

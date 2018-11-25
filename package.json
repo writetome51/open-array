@@ -1,38 +1,41 @@
 {
-  "name": "@writetome51/open-array",
-  "version": "1.0.2",
+  "name": "@writetome51/public-array",
+  "version": "1.0.0",
   "description": "a typescript class with clear method names for manipulating arrays",
-  "main": "",
+  "main": "dist/index.js",
+  "types":"dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/writetome51/open-array.git"
+    "url": "git+https://github.com/writetome51/public-array.git"
   },
   "keywords": [
     "array",
+    "arrays",
+    "general",
     "manipulation",
     "typescript",
-    "classes"
+    "class"
   ],
   "author": "Steve Thompson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/writetome51/open-array/issues"
+    "url": "https://github.com/writetome51/public-array/issues"
   },
-  "homepage": "https://github.com/writetome51/open-array#readme",
+  "homepage": "https://github.com/writetome51/public-array#readme",
   "dependencies": {
-    "@writetome51/open-array-item-remover": "latest",
-    "@writetome51/open-array-content": "latest",
-    "@writetome51/open-array-item-getter": "latest",
-    "@writetome51/open-array-item-inserter": "latest",
-    "@writetome51/open-array-sorter": "latest",
-    "@writetome51/open-array-item-replacer": "latest",
-    "@writetome51/open-array-getter-converter": "latest",
-    "@writetome51/open-array-item-getter-remover": "latest",
-    "@writetome51/open-array-filter": "latest",
+    "@writetome51/public-array-remover": "latest",
+    "@writetome51/public-array-content": "latest",
+    "@writetome51/public-array-getter": "latest",
+    "@writetome51/public-array-inserter": "latest",
+    "@writetome51/public-array-sorter": "latest",
+    "@writetome51/public-array-replacer": "latest",
+    "@writetome51/public-array-getter-converter": "latest",
+    "@writetome51/public-array-getter-remover": "latest",
+    "@writetome51/public-array-filter": "latest",
     "@writetome51/array-append-prepend": "latest",
-    "@writetome51/object-factory": "latest"
+    "@writetome51/di-factory": "latest"
   }
 }

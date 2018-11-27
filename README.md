@@ -54,6 +54,15 @@ arr.data = [1,2,3,4,5,6,7];
 
 ```
 
+## Performance
+
+PublicArray has a large number of dependencies.  You should keep this in mind when optimizing the 
+performance of your app. If your code only uses one property of PublicArray, like for 
+instance .replace, you will get a slight performance boost if you just use an instance of
+PublicArrayReplacer instead:
+```
+let replace = new PublicArrayReplacer(arr);
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

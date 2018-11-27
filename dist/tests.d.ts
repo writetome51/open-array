@@ -1,11 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = require("./index");
-var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-var otherArr = arr.data;
-otherArr.length = 0;
-console.log(otherArr);
-console.log(arr.data);
+export {};
 /************
  arr.remove.allAfterFirst(6);
  arr.remove.allBeforeFirst(3);

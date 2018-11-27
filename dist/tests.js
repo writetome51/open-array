@@ -1,11 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("./index");
+console.log('hello');
+//let arr = new PublicArrayReplacer([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-var otherArr = arr.data;
+console.log(arr.remove.byIndex(0).byIndexes([1, 3, 5]).adjacentAt(1, 2));
+var arrCopy = arr.copy;
+console.log(arrCopy);
+/****************
+
+
+let otherArr = arr.data;
+
 otherArr.length = 0;
+
 console.log(otherArr);
+
 console.log(arr.data);
+ *************/
 /************
  arr.remove.allAfterFirst(6);
  arr.remove.allBeforeFirst(3);

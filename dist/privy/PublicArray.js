@@ -17,7 +17,8 @@ var array_append_prepend_1 = require("@writetome51/array-append-prepend");
 var di_factory_1 = require("@writetome51/di-factory");
 var public_array_content_1 = require("@writetome51/public-array-content");
 /**************
- This class is called PublicArray because an array is contained inside it, in a public property.
+ This class is called PublicArray because an array is contained inside it,
+ in a public property: 'data'
 
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
@@ -28,16 +29,28 @@ var public_array_content_1 = require("@writetome51/public-array-content");
  let arr = getPublicArray( [1,2,3,4,5,6] );
  arr.remove.tail(2); // arr.data is now [1,2,3,4]
  if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
-
- To access the array itself, you access the 'data' property.
  *************/
 var PublicArray = /** @class */ (function (_super) {
     __extends(PublicArray, _super);
+    /***************
+     Public Properties:
+
+     readonly copy: PublicArray; // independent copy of this instance.
+     readonly filter: PublicArrayFilter;
+     readonly getConverted: PublicArrayGetterConverter;
+     readonly get: PublicArrayGetter;
+     readonly getAndRemove: PublicArrayGetterRemover;
+     readonly insert: PublicArrayInserter;
+     readonly remove: PublicArrayRemover;
+     readonly replace: PublicArrayReplacer;
+     readonly sort: PublicArraySorter;
+     ***************/
     function PublicArray(
     // begin injected dependencies...
     _filter, _getConverted, _get, _getAndRemove, _insert, _remove, _replace, _sort, 
     // ... end injected dependencies
-    data) {
+    data // the actual array, represented by inherited property this.data
+    ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
         _this._filter = _filter;
@@ -65,7 +78,7 @@ var PublicArray = /** @class */ (function (_super) {
         // this.copy  -- returns independent copy of this.
         get: function () {
             // @ts-ignore
-            return di_factory_1.DIFactory.getInstance(PublicArray, [this.get.copy]);
+            return di_factory_1.DIFactory.getInstance(PublicArray, [this.get.copy()]);
         },
         enumerable: true,
         configurable: true

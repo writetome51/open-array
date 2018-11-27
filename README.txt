@@ -19,10 +19,9 @@ To actually see or get the array itself, you must access PublicArray's data prop
 
 console.log(arr.data); // logs '[10,3,4,100,200,300]'
 
-PublicArray has several injected dependencies, so you need to use ObjectFactory (which is
-included by npm) to instantiate it:
+To instantiate:
 
-let arr = ObjectFactory.getInstance(PublicArray, [ [1,2,3,4,5,6] ]);
+ let arr = getPublicArray( [1,2,3,4,5,6] );
 
 Aside from 'data', PublicArray has these public properties, which are all instances of the
 other classes in this package:

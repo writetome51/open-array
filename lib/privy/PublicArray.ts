@@ -1,19 +1,18 @@
+import { append, prepend } from '@writetome51/array-append-prepend';
 import { DIFactory } from '@writetome51/di-factory';
-import { PublicArrayItemRemover } from '@writetome51/public-array-item-remover';
+import { PublicArrayRemover } from '@writetome51/public-array-remover';
 import { PublicArrayContent } from '@writetome51/public-array-content';
-import { PublicArrayItemGetter } from '@writetome51/public-array-item-getter';
-import { PublicArrayItemInserter } from '@writetome51/public-array-item-inserter';
+import { PublicArrayGetter } from '@writetome51/public-array-getter';
+import { PublicArrayInserter } from '@writetome51/public-array-inserter';
 import { PublicArraySorter } from '@writetome51/public-array-sorter';
-import { PublicArrayItemReplacer } from '@writetome51/public-array-item-replacer';
+import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
 import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
-import { PublicArrayItemGetterRemover } from '@writetome51/public-array-item-getter-remover';
+import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
 import { PublicArrayFilter } from '@writetome51/public-array-filter';
-import { append, prepend } from '@writetome51/array-append-prepend/append-prepend';
 
 
 /**************
- This class is called PublicArray because although the class instance is not the array itself, and the
- actual array is contained inside it in a property, that property is public (or, in other words, open).
+ This class is called PublicArray because an array is contained inside it, in a public property.
 
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
@@ -21,7 +20,7 @@ import { append, prepend } from '@writetome51/array-append-prepend/append-prepen
 
  A few examples of usage:
 
- let arr = DIFactory.getInstance(PublicArray, [[1,2,3,4,5,6]]);
+ let arr = getPublicArray( [1,2,3,4,5,6] );
  arr.remove.tail(2); // arr.data is now [1,2,3,4]
  if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
 
@@ -36,11 +35,11 @@ export class PublicArray extends PublicArrayContent {
 		// begin injected dependencies...
 		private _filter: PublicArrayFilter,
 		private _getConverted: PublicArrayGetterConverter,
-		private _get: PublicArrayItemGetter,
-		private _getAndRemove: PublicArrayItemGetterRemover,
-		private _insert: PublicArrayItemInserter,
-		private _remove: PublicArrayItemRemover,
-		private _replace: PublicArrayItemReplacer,
+		private _get: PublicArrayGetter,
+		private _getAndRemove: PublicArrayGetterRemover,
+		private _insert: PublicArrayInserter,
+		private _remove: PublicArrayRemover,
+		private _replace: PublicArrayReplacer,
 		private _sort: PublicArraySorter,
 		// ... end injected dependencies
 
@@ -66,26 +65,26 @@ export class PublicArray extends PublicArrayContent {
 
 
 	// this.copy  -- returns independent copy of this.
-	get copy() {
+	get copy(): PublicArray {
 		// @ts-ignore
-		return DIFactory.getInstance(PublicArray, [this.get.copy()]);
+		return DIFactory.getInstance(PublicArray, [this.get.copy]);
 	}
 
 
-	append(values: any[]) {
+	append(values: any[]): this {
 		return this.returnThis_after(append(values, this.data));
 	}
 
 
-	prepend(values: any[]) {
+	prepend(values: any[]): this {
 		return this.returnThis_after(prepend(values, this.data));
 	}
 
 
 	// this.forEach(iterationFunction)
-	// iterationFunction = function(currentItem, currentIndex, entireArray){...}
-	forEach(iterationFunction) {
-		this.returnThis_after(this.data.forEach(iterationFunction));
+	// iterationFunction = function(currentItem, currentIndex?, entireArray?){...}
+	forEach(iterationFunction): this {
+		return this.returnThis_after(this.data.forEach(iterationFunction));
 	}
 
 

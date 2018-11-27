@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ObjectFactory_1 = require("@writetome51/object-factory/ObjectFactory");
-var PublicArray_1 = require("../PublicArray");
-var arr = ObjectFactory_1.ObjectFactory.getInstance(PublicArray_1.PublicArray, [[1, 2, 3, 4, 5, 6, 7, 8, 9]]);
+var index_1 = require("./index");
+var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 var otherArr = arr.data;
 otherArr.length = 0;
 console.log(otherArr);
@@ -23,9 +22,7 @@ console.log(arr.data);
  console.log(anotherArr.data);
  console.log(arr.length);
 
- let hasStrings = arr.anyPass((item)=>{
-    return typeof item === 'string';
-});
+ let hasStrings = arr.anyPass((item) => typeof item === 'string' );
 
  console.log(hasStrings);
 

@@ -13,17 +13,22 @@ npm install @writetome51/public-array
 ## Loading
 ```
 // If using TypeScript:
-import {PublicArray} from '@writetome51/public-array';
+import { getPublicArray } from '@writetome51/public-array';
 // If using ES5 JavaScript:
-var PublicArray = require('@writetome51/public-array').PublicArray;
+var getPublicArray = require('@writetome51/public-array').getPublicArray;
 ```
 
 
 ## Public API
 
-### Constructor
+### Instantiation
 ```
-new PublicArray(array = [])
+getPublicArray(array = []): PublicArray
+    // Examples:
+    // let arr = getPublicArray([1,2,3,4,5]);
+    // Or, instantiate with an empty array:
+    // let arr = getPublicArray();
+
 ```
 
 ### Properties
@@ -43,8 +48,6 @@ data : any[] (read-writable) // This is the array to be operated on.
 ## Usage
 
 ```
-// getting an instance:
-let arr = new PublicArray(['h','e','l','l','o']);
 
 // changing the array content:
 arr.data = [1,2,3,4,5,6,7];

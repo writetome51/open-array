@@ -35,15 +35,15 @@ var PublicArray = /** @class */ (function (_super) {
     /***************
      Public Properties:
 
-     readonly copy: PublicArray; // independent copy of this instance.
-     readonly filter: PublicArrayFilter;
-     readonly getConverted: PublicArrayGetterConverter;
-     readonly get: PublicArrayGetter;
-     readonly getAndRemove: PublicArrayGetterRemover;
-     readonly insert: PublicArrayInserter;
-     readonly remove: PublicArrayRemover;
-     readonly replace: PublicArrayReplacer;
-     readonly sort: PublicArraySorter;
+     readonly  copy: PublicArray; // independent copy of this instance.
+     readonly  filter: PublicArrayFilter;
+     readonly  getConverted: PublicArrayGetterConverter;
+     readonly  get: PublicArrayGetter;
+     readonly  getAndRemove: PublicArrayGetterRemover;
+     readonly  insert: PublicArrayInserter;
+     readonly  remove: PublicArrayRemover;
+     readonly  replace: PublicArrayReplacer;
+     readonly  sort: PublicArraySorter;
      ***************/
     function PublicArray(
     // begin injected dependencies...

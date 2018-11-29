@@ -49,13 +49,11 @@ getPublicArray(array = []): PublicArray
 
 ### Properties
 
-#### className: string (read-only)
+#### data: any[] (read-writable)  
+###### This is the array to be operated on.
 
 #### copy: PublicArray (read-only)  
 ###### an independent copy of the PublicArray instance
-
-#### data: any[] (read-writable)  
-###### This is the array to be operated on.
 
 #### length: number (read-writable) 
 ###### length of array
@@ -91,6 +89,79 @@ getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
 ```
 
 #### get: PublicArrayGetter (read-only)
+###### This has methods that return items copied from the array.  None of them modify the array.
+```     
+get.copy(): any[]
+    // Returns independent copy of the array.
+
+get.byIndex(index): any
+    // Returns 1 item.  index can be negative or positive.
+           
+get.byIndexes(indexes): any[]
+    // indexes can be negative or positive.
+       
+get.head(numItems): any[]
+    // returns numItems from beginning
+
+get.tail(numItems): any[]
+    // returns numItems from end
+
+get.between(numItemsToIgnoreAtEachEnd): any[]
+    // Returns middle of array, between numItemsToIgnoreAtEachEnd
+       
+get.adjacentAt(startingIndex, numItems): any[]
+    // Returns adjacent items.  startingIndex can be negative or positive.
+       
+get.adjacentToValue(info: IAdjacentToValueInfo): any[]
+    /**************
+    Returns adjacent items including, or near, a particular value.
+    Only applies to the first instance of value found in array.
+    The parameter 'info' is an object that looks like this:
+    {
+        value: any except object (the value to search for in the array),
+        offset: integer (tells function where, in relation to value, to begin selecting adjacent
+                items to return.  If offset is zero, the selection will begin with value.)
+        howMany: integer greater than zero (it's how many adjacent items to return)
+    }
+    Example:
+        // arr.data is [1,2,3,4,5,6,7,8,9,10]
+        let numbers = arr.get.adjacentToValue({value:5, offset: -2, howMany:3});
+        // numbers is now [3,4,5]
+    ***************/	
+
+get.allAfterFirst(value: any): any[]
+    // value cannot be object
+       
+get.allBeforeFirst(value: any): any[]
+    // value cannot be object
+       
+get.allAfterLast(value: any): any[]
+    // value cannot be object
+       
+get.allBeforeLast(value: any): any[]
+    // value cannot be object
+       
+get.uniqueItems(): any[]
+    // returns no duplicates.
+       
+get.duplicates(): any[]
+    // returns every instance of a duplicate, so you may get multiple instances.       
+       
+get.shuffled(): any[]
+    // returns new, shuffled version of the array
+
+get.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): IValueIndexPair[]
+    /***************
+    Almost exactly like Array.filter(), except it returns array of IValueIndexPairs.
+    A IValueIndexPair is this object: {value: any, index: integer}
+    It's both the value filtered by the testFunction and its index.
+    ***************/
+        
+get.byType(
+    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
+):  IValueIndexPair[]
+    // For explanation of IValueIndexPair, see explanation of byTest().
+```
  
 #### getAndRemove: PublicArrayGetterRemover (read-only)
  
@@ -101,6 +172,8 @@ getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
 #### replace: PublicArrayReplacer (read-only)
  
 #### sort: PublicArraySorter (read-only)
+
+#### className: string (read-only)
 
 
 ### Methods

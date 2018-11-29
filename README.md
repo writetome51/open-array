@@ -66,35 +66,30 @@ getPublicArray(array = []): PublicArray
 #### notEmpty: boolean (read-only)
 
 #### filter: PublicArrayFilter (read-only)
-Filter has methods that narrow down the content of the array it contains  
-and return the class instance.
+###### This has methods that narrow down the content of the array and return the PublicArrayFilter instance:
+```
+filter.byTest(testFunction): PublicArrayFilter
+    // Narrows down the array to only the values that pass testFunction.
+    // testFunction = function(currentValue, currentIndex?, theArray?): boolean
 
-To instantiate, pass the actual array it will contain into its constructor:
-
-    let filter = new PublicArrayFilter( [item1, item2, item3,...] );
-
-You can also reset the array by accessing the class 'data' property:
-
-    filter.data = [1,2,3,4,...];
-
-These are all its methods:
-
-        // Narrows down the array to only the values that pass test:
-
-        byTest(testFunction): this
-        // testFunction = function(currentValue, currentIndex?, theArray?){...}
-        // testFunction must return boolean.
-
-
-        // Narrows down the array to only values that are the specified type:
-
-        byType(
-    	    type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined'
-        ): this
-
+filter.byType(
+    type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined'
+): PublicArrayFilter
+    // Narrows down the array to only values that are the specified type.
+```
 
 #### getConverted: PublicArrayGetterConverter (read-only)
- 
+###### This has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+```
+getConverted.toOne(
+    reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
+): any
+    // reduces all values in array down to a single value, and returns that value.
+
+getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
+    // returns new array where each value in current array is converted into something else.
+```
+
 #### get: PublicArrayGetter (read-only)
  
 #### getAndRemove: PublicArrayGetterRemover (read-only)

@@ -64,7 +64,7 @@ getPublicArray(array = []): PublicArray
 #### notEmpty: boolean (read-only)
 
 #### filter: PublicArrayFilter (read-only)
-###### This has methods that narrow down the content of the array and return the PublicArrayFilter instance:
+###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
 ```
 filter.byTest(testFunction): PublicArrayFilter
     // Narrows down the array to only the values that pass testFunction.
@@ -77,7 +77,7 @@ filter.byType(
 ```
 
 #### getConverted: PublicArrayGetterConverter (read-only)
-###### This has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
 ```
 getConverted.toOne(
     reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
@@ -89,7 +89,7 @@ getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
 ```
 
 #### get: PublicArrayGetter (read-only)
-###### This has methods that return items copied from the array.  None of them modify the array.
+###### Has methods that return items copied from the array.  None of them modify the array.
 ```     
 get.copy(): any[]
     // Returns independent copy of the array.
@@ -164,7 +164,7 @@ get.byType(
 ```
  
 #### getAndRemove: PublicArrayGetterRemover (read-only)
-######  This has methods that both remove and return items from the array.
+######  Has methods that both remove and return items from the array:
 ```
 getAndRemove.byIndex(index): any
     // index can be negative or positive.
@@ -234,8 +234,92 @@ getAndRemove.byType(
 
  
 #### insert: PublicArrayInserter (read-only)
+######  Has methods that increase the length of the array and return the PublicArrayInserter instance:
+```
+insert.at(index, values: any[]): PublicArrayInserter
+    // inserts values at index.  index can be negative or positive.
+
+insert.middle(values: any[], offset = 0): PublicArrayInserter
+    // inserts values in middle of the array.
+    // By default, if the array has odd number of items, values will be inserted just before the
+    // middle item. If you want to change the insert position, set the optional offset parameter to +
+    // or - whatever integer you want.
+```
  
 #### remove: PublicArrayRemover (read-only)
+###### Has methods that all remove items from the array and return the PublicArrayRemover instance:
+```
+remove.byIndex(index): this
+    // index can be negative or positive.
+
+remove.byIndexes(indexes): this
+    // indexes can be negative or positive.
+
+remove.adjacentAt(startingIndex, numItemsToRemove): this
+    // startingIndex can be negative or positive.  Removes adjacent items.
+
+remove.adjacentToValue(info): this
+    /************
+    Removes adjacent items including, or near, a particular value.
+    Only applies to the first instance of value found in array.
+    The parameter 'info' is an object that looks like this:
+    {
+        value: any except object (the value to search for in the array),
+        offset: integer (tells function where, in relation to value, to begin selecting adjacent
+                items to remove.  If offset is zero, the selection will begin with value.)
+        howMany: integer greater than zero (it's how many adjacent items to remove)
+    }
+    Example:
+        // arr.data is [1,2,3,4,5,6,7,8,9,10]
+        arr.remove.adjacentToValue({value:5, offset: -2, howMany:3});
+        // arr.data is now [1,2,6,7,8,9,10]
+    *************/
+
+remove.head(numItemsToRemove): this
+    // Removes numItemsToRemove from array's beginning.
+
+remove.tail(numItemsToRemove): this
+    // Removes numItemsToRemove from array's end.
+    
+remove.between(numItemsToKeepAtEachEnd): this
+    // Removes everything between numItemsToKeepAtEachEnd.
+    // i.e., if numItemsToKeepAtEachEnd = 2, then only the first 2 items and last 2 items will remain.
+
+remove.firstOf(value): this
+    // Removes first instance of value.  value cannot be object (that applies to all functions here
+    // with a parameter called 'value').
+
+remove.firstOfEach(values: any[]): this
+    // Removes first instance of each value.  values cannot contain object (that applies to all functions
+    // here with a parameter called 'values').
+
+remove.allOf(value): this
+    // Removes all instances of value.
+    
+remove.allOfEach(values: any[]): this
+    // Removes all instances of each value.
+
+remove.allAfterFirst(value: any): this
+    // Removes all items after first instance of value.
+
+remove.allBeforeFirst(value: any): this
+    // Removes all items before first instance of value.
+
+remove.allAfterLast(value): this
+    // Removes all items after last instance of value.
+
+remove.allBeforeLast(value): this
+    // Removes all items before last instance of value.
+
+remove.duplicates(): this
+
+remove.byTest(testFunction: (currentItem, currentIndex?, array?) => boolean): this
+    // if currentItem passes test, it is removed.
+
+remove.byType(
+    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
+): this
+```
  
 #### replace: PublicArrayReplacer (read-only)
  
@@ -247,7 +331,6 @@ getAndRemove.byType(
 ### Methods
 
 ```
-
 asString(glue = ', '): string
     // Does same thing as Array.join()
 	

@@ -66,9 +66,8 @@ getPublicArray(array = []): PublicArray
 #### filter: PublicArrayFilter (read-only)
 ###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
 ```
-filter.byTest(testFunction): PublicArrayFilter
+filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): PublicArrayFilter
     // Narrows down the array to only the values that pass testFunction.
-    // testFunction = function(currentValue, currentIndex?, theArray?): boolean
 
 filter.byType(
     type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined'
@@ -129,16 +128,16 @@ get.adjacentToValue(info: IAdjacentToValueInfo): any[]
         // numbers is now [3,4,5]
     ***************/	
 
-get.allAfterFirst(value: any): any[]
+get.allAfterFirst(value): any[]
     // value cannot be object
        
-get.allBeforeFirst(value: any): any[]
+get.allBeforeFirst(value): any[]
     // value cannot be object
        
-get.allAfterLast(value: any): any[]
+get.allAfterLast(value): any[]
     // value cannot be object
        
-get.allBeforeLast(value: any): any[]
+get.allBeforeLast(value): any[]
     // value cannot be object
        
 get.uniqueItems(): any[]
@@ -182,7 +181,7 @@ getAndRemove.between(numItemsToKeepAtEachEnd): any[]
 getAndRemove.adjacentAt(startingIndex, numItemsToRemove): any[]
     // startingIndex can be negative or positive.
 
-getAndRemove.adjacentToValue(info): any[]
+getAndRemove.adjacentToValue(info: IAdjacentToValueInfo): any[]
     /********
     Removes and returns adjacent items including, or near, a particular value.
     Only applies to the first instance of value found in array.
@@ -201,16 +200,16 @@ getAndRemove.adjacentToValue(info): any[]
 
 // For all the functions below, the parameter 'value' cannot be object.
     
-getAndRemove.allAfterFirst(value: any): any[]
+getAndRemove.allAfterFirst(value): any[]
     // Removes and returns everything after first instance of value
 
-getAndRemove.allBeforeFirst(value: any): any[]
+getAndRemove.allBeforeFirst(value): any[]
     // Removes and returns everything before first instance of value
 
-getAndRemove.allAfterLast(value: any): any[]
+getAndRemove.allAfterLast(value): any[]
     // Removes and returns everything after last instance of value
 
-getAndRemove.allBeforeLast(value: any): any[]
+getAndRemove.allBeforeLast(value): any[]
     // Removes and returns everything before last instance of value
 
 getAndRemove.duplicates(): any[]
@@ -249,16 +248,16 @@ insert.middle(values: any[], offset = 0): PublicArrayInserter
 #### remove: PublicArrayRemover (read-only)
 ###### Has methods that all remove items from the array and return the PublicArrayRemover instance:
 ```
-remove.byIndex(index): this
+remove.byIndex(index): PublicArrayRemover
     // index can be negative or positive.
 
-remove.byIndexes(indexes): this
+remove.byIndexes(indexes): PublicArrayRemover
     // indexes can be negative or positive.
 
-remove.adjacentAt(startingIndex, numItemsToRemove): this
-    // startingIndex can be negative or positive.  Removes adjacent items.
+remove.adjacentAt(startingIndex, numItemsToRemove): PublicArrayRemover
+   // Removes adjacent items.  startingIndex can be negative or positive.  
 
-remove.adjacentToValue(info): this
+remove.adjacentToValue(info: IAdjacentToValueInfo): PublicArrayRemover
     /************
     Removes adjacent items including, or near, a particular value.
     Only applies to the first instance of value found in array.
@@ -275,53 +274,120 @@ remove.adjacentToValue(info): this
         // arr.data is now [1,2,6,7,8,9,10]
     *************/
 
-remove.head(numItemsToRemove): this
+remove.head(numItemsToRemove): PublicArrayRemover
     // Removes numItemsToRemove from array's beginning.
 
-remove.tail(numItemsToRemove): this
+remove.tail(numItemsToRemove): PublicArrayRemover
     // Removes numItemsToRemove from array's end.
     
-remove.between(numItemsToKeepAtEachEnd): this
+remove.between(numItemsToKeepAtEachEnd): PublicArrayRemover
     // Removes everything between numItemsToKeepAtEachEnd.
     // i.e., if numItemsToKeepAtEachEnd = 2, then only the first 2 items and last 2 items will remain.
+    
+/************
+ For all the functions below:
+     Any parameter called 'value' cannot be an object.
+     Any parameter called 'values' cannot contain an object.
+************/
 
-remove.firstOf(value): this
-    // Removes first instance of value.  value cannot be object (that applies to all functions here
-    // with a parameter called 'value').
+remove.firstOf(value): PublicArrayRemover
+    // Removes first instance of value. 
 
-remove.firstOfEach(values: any[]): this
-    // Removes first instance of each value.  values cannot contain object (that applies to all functions
-    // here with a parameter called 'values').
+remove.firstOfEach(values: any[]): PublicArrayRemover
+    // Removes first instance of each value.
 
-remove.allOf(value): this
+remove.allOf(value): PublicArrayRemover
     // Removes all instances of value.
     
-remove.allOfEach(values: any[]): this
+remove.allOfEach(values: any[]): PublicArrayRemover
     // Removes all instances of each value.
 
-remove.allAfterFirst(value: any): this
+remove.allAfterFirst(value): PublicArrayRemover
     // Removes all items after first instance of value.
 
-remove.allBeforeFirst(value: any): this
+remove.allBeforeFirst(value): PublicArrayRemover
     // Removes all items before first instance of value.
 
-remove.allAfterLast(value): this
+remove.allAfterLast(value): PublicArrayRemover
     // Removes all items after last instance of value.
 
-remove.allBeforeLast(value): this
+remove.allBeforeLast(value): PublicArrayRemover
     // Removes all items before last instance of value.
 
-remove.duplicates(): this
+remove.duplicates(): PublicArrayRemover
 
-remove.byTest(testFunction: (currentItem, currentIndex?, array?) => boolean): this
+remove.byTest(testFunction: (currentItem, currentIndex?, array?) => boolean): PublicArrayRemover
     // if currentItem passes test, it is removed.
 
 remove.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
-): this
+): PublicArrayRemover
 ```
  
 #### replace: PublicArrayReplacer (read-only)
+###### Has methods that all replace items in the array and return the PublicArrayReplacer instance:
+```
+replace.at(index, newValue): PublicArrayReplacer
+    // Replaces item at index with newValue.  index can be negative or positive.
+
+replace.adjacentAt(startingIndex, newValues: any[]): PublicArrayReplacer
+    // Replaces adjacent items beginning at startingIndex with newValues.
+    // Number of adjacent items that are replaced is same as number of items in newValues.
+    // startingIndex can be negative or positive.
+    
+replace.adjacentToValue(info: IAdjacentToValueInfo, newValues: any[]): PublicArrayReplacer
+    /**********
+    Replaces adjacent items including, or near a particular value, with newValues.
+    Only applies to the first instance of value found in array.
+    The parameter 'info' is an object that looks like this:
+    {
+        value: any except object (the value to search for in the array),
+        offset: integer (tells function where, in relation to value, to begin selecting adjacent
+                    	items to replace.  If offset is zero, the selection will begin with value.)
+       	howMany: integer greater than zero (it's how many adjacent items to replace)
+    }
+    Example:
+	//  array is [1,2,3,4,5,6,7,8] .
+	//  let newValues = [20,30,40];
+	//  this.adjacentToValue({value: 5, offset: -1, howMany: 2},  newValues);
+	//  array is now [1,2,3,20,30,40,6,7,8]
+    **********/
+
+replace.between(numItemsToKeepAtEachEnd, newValues: any[]): PublicArrayReplacer
+    // Replaces everything between numItemsToKeepAtEachEnd with newValues.
+    // Example: if this.data is [1,2,3,4,5,6,7] , and you call .between(2, [9,10])
+    // this.data will be [1,2,9,10,6,7] .  It preserves the first 2 items and the last 2.
+    
+replace.firstOf(value, newValue): PublicArrayReplacer
+    // Replaces first instance of value with newValue.
+    
+replace.firstOfEach(values: any[], newValues: any[]): PublicArrayReplacer
+    // First instance of values[i] found in array gets replaced with newValues[i].
+    
+replace.allOf(value, newValue): PublicArrayReplacer
+    // Replaces all instances of value with newValue.
+    
+replace.allOfEach(values: any[], newValues: any[]): PublicArrayReplacer
+    // All instances of values[i] found in array get replaced with newValues[i].
+    
+replace.each(replacementFunction: (item, index?, array?) => any): PublicArrayReplacer
+    /**********
+    Loops thru array, passing each item into replacementFunction.
+    replacementFunction signature:  function(item, index?, array?): any
+    replacementFunction must return the new value you want to give to that index in the array.
+    Example:
+    //  this.data is [1,2,3,4,5,6] .
+    //  this.each((item) => {
+    //      if (item === 2 || item === 6) return item * 3;
+    //      else return item;
+    //  });
+    //  this.data is now [1,6,3,4,5,18]
+    **********/
+    
+    
+replace.allWithOne(values: any[], newValue): PublicArrayReplacer
+    // Replaces all instances of each value in values with newValue.
+```
  
 #### sort: PublicArraySorter (read-only)
 

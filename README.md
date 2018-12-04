@@ -44,6 +44,8 @@ getPublicArray(array = []): PublicArray
 ```
 
 ## Properties
+<details>
+<summary>view properties</summary>
 
 #### data: any[] (read-writable)  
 ###### This is the array to be operated on.
@@ -77,8 +79,7 @@ filter.byType(
 
 
 #### getConverted: PublicArrayGetterConverter (read-only)
-###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , 
-respectively.  None of them modify the array.
+###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
 <details>
 <summary>view methods</summary>
 
@@ -453,6 +454,7 @@ sort.shuffle(): PublicArraySorter;
 
 
 #### className: string (read-only)
+</details>
 
 
 ## Methods

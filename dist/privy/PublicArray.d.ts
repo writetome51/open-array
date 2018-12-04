@@ -37,19 +37,17 @@ export declare class PublicArray extends PublicArrayContent {
 	private _sort;
 
 
-	/***************
-	 Public Properties:
+	// Public Properties:
 
-	 readonly copy: PublicArray; // independent copy of this instance.
-	 readonly filter: PublicArrayFilter;
-	 readonly getConverted: PublicArrayGetterConverter;
-	 readonly get: PublicArrayGetter;
-	 readonly getAndRemove: PublicArrayGetterRemover;
-	 readonly insert: PublicArrayInserter;
-	 readonly remove: PublicArrayRemover;
-	 readonly replace: PublicArrayReplacer;
-	 readonly sort: PublicArraySorter;
-	 ***************/
+	readonly copy: PublicArray; // independent copy of this instance.
+	readonly filter: PublicArrayFilter;
+	readonly getConverted: PublicArrayGetterConverter;
+	readonly get: PublicArrayGetter;
+	readonly getAndRemove: PublicArrayGetterRemover;
+	readonly insert: PublicArrayInserter;
+	readonly remove: PublicArrayRemover;
+	readonly replace: PublicArrayReplacer;
+	readonly sort: PublicArraySorter;
 
 
 	constructor(
@@ -69,14 +67,17 @@ export declare class PublicArray extends PublicArrayContent {
 	);
 
 
-	readonly copy: PublicArray;
-
-
 	append(values: any[]): this;
 
 
 	prepend(values: any[]): this;
 
 
-	forEach(iterationFunction: any): this;
+	forEach(
+		iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any
+	): this;
+
+
+	set(newArray: any[]): this;
+
 }

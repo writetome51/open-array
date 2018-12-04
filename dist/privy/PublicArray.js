@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var array_append_prepend_1 = require("@writetome51/array-append-prepend");
+var set_array_1 = require("@writetome51/set-array");
 var di_factory_1 = require("@writetome51/di-factory");
 var public_array_content_1 = require("@writetome51/public-array-content");
 /**************
@@ -32,19 +33,6 @@ var public_array_content_1 = require("@writetome51/public-array-content");
  *************/
 var PublicArray = /** @class */ (function (_super) {
     __extends(PublicArray, _super);
-    /***************
-     Public Properties:
-
-     readonly  copy: PublicArray; // independent copy of this instance.
-     readonly  filter: PublicArrayFilter;
-     readonly  getConverted: PublicArrayGetterConverter;
-     readonly  get: PublicArrayGetter;
-     readonly  getAndRemove: PublicArrayGetterRemover;
-     readonly  insert: PublicArrayInserter;
-     readonly  remove: PublicArrayRemover;
-     readonly  replace: PublicArrayReplacer;
-     readonly  sort: PublicArraySorter;
-     ***************/
     function PublicArray(
     // begin injected dependencies...
     _filter, _getConverted, _get, _getAndRemove, _insert, _remove, _replace, _sort, 
@@ -89,10 +77,12 @@ var PublicArray = /** @class */ (function (_super) {
     PublicArray.prototype.prepend = function (values) {
         return this.returnThis_after(array_append_prepend_1.prepend(values, this.data));
     };
-    // this.forEach(iterationFunction)
-    // iterationFunction = function(currentItem, currentIndex?, entireArray?){...}
     PublicArray.prototype.forEach = function (iterationFunction) {
         return this.returnThis_after(this.data.forEach(iterationFunction));
+    };
+    // Use this for changing value of this.data without breaking its memory reference.
+    PublicArray.prototype.set = function (newArray) {
+        return this.returnThis_after(set_array_1.setArray(this.data, newArray));
     };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));

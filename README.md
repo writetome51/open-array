@@ -532,6 +532,10 @@ prepend(values: any[]): this
 forEach(iterationFunction): this
     // Behaves same as Array.forEach()
     // iterationFunction = function(currentValue, currentIndex?, entireArray?){...}
+    
+set(newArray): this
+    // Changes value of this.data to newArray without breaking its memory reference.
+    // So if there are copies of this.data, the copies will be updated as well.
 
 protected  _createGetterAndOrSetterForEach(
 		propertyNames: string[],
@@ -556,17 +560,18 @@ runMethod_and_returnThis(
 
 ```
 // changing the array content:
-arr.data = [1,2,3,4,5,6,7];
+arr.data = [{prop1: 'yes', prop2: 'no'}, {prop1: 'no', prop2: 'yes'}];
 ```
 
 ## Performance
 
 PublicArray has a large number of dependencies.  You should keep this in mind when optimizing  
-the performance of your app. If your code only uses one property of PublicArray, like for  
-instance `.replace`, you will get a slight performance boost if you just use an instance of  
-PublicArrayReplacer instead:
+the performance of your app. For example, say your code only uses PublicArray's `.replace` property  
+and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you will get a slight   
+performance boost if you just instantiate PublicArrayReplacer instead of PublicArray:
 ```
-let replace = new PublicArrayReplacer(arr);
+let replace = new PublicArrayReplacer(array);
+replace.adjacentAt(2, ['just', 'an', 'example']);
 ```
 ## Inheritance Chain
 

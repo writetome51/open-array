@@ -1,4 +1,5 @@
 import { append, prepend } from '@writetome51/array-append-prepend';
+import { setArray } from '@writetome51/set-array';
 import { DIFactory } from '@writetome51/di-factory';
 import { PublicArrayRemover } from '@writetome51/public-array-remover';
 import { PublicArrayContent } from '@writetome51/public-array-content';
@@ -29,10 +30,10 @@ import { PublicArrayFilter } from '@writetome51/public-array-filter';
 
 export class PublicArray extends PublicArrayContent {
 
-	/***************
-	 Public Properties:
 
-	 readonly  copy: PublicArray; // independent copy of this instance.
+	 //Public Properties:
+
+	 //readonly  copy: PublicArray; // independent copy of this instance.
 	 readonly  filter: PublicArrayFilter;
 	 readonly  getConverted: PublicArrayGetterConverter;
 	 readonly  get: PublicArrayGetter;
@@ -41,7 +42,7 @@ export class PublicArray extends PublicArrayContent {
 	 readonly  remove: PublicArrayRemover;
 	 readonly  replace: PublicArrayReplacer;
 	 readonly  sort: PublicArraySorter;
-	 ***************/
+
 
 
 	constructor(
@@ -94,11 +95,16 @@ export class PublicArray extends PublicArrayContent {
 	}
 
 
-	// this.forEach(iterationFunction)
-	// iterationFunction = function(currentItem, currentIndex?, entireArray?){...}
-	forEach(iterationFunction): this {
+	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): this {
 		return this.returnThis_after(this.data.forEach(iterationFunction));
 	}
 
 
+	// Use this for changing value of this.data without breaking its memory reference.
+	set(newArray): this {
+		return this.returnThis_after(setArray(this.data, newArray));
+	}
+
+
 }
+

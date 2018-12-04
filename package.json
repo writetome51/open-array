@@ -39,6 +39,7 @@
     "@writetome51/public-array-getter-remover": "~1.0.0",
     "@writetome51/public-array-filter": "~1.0.5",
     "@writetome51/array-append-prepend": "~1.0.3",
-    "@writetome51/di-factory": "~1.0.0"
+    "@writetome51/di-factory": "~1.0.0",
+    "@writetome51/set-array": "~1.0.0"
   }
 }

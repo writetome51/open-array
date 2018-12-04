@@ -4,9 +4,11 @@ var index_1 = require("./index");
 console.log('hello');
 //let arr = new PublicArrayReplacer([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-console.log(arr.remove.byIndex(0).byIndexes([1, 3, 5]).adjacentAt(1, 2));
+console.log(arr.remove.byIndex(0).byIndexes([1, 3, 5]).adjacentAt(1, 2)); // [2, 8, 9]
 var arrCopy = arr.copy;
-console.log(arrCopy);
+arrCopy.data = [1, 2];
+console.log(arrCopy.data);
+console.log(arr.data);
 /****************
 
 

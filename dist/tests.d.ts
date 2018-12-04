@@ -1,4 +1,15 @@
 export {};
+/****************
+
+
+let otherArr = arr.data;
+
+otherArr.length = 0;
+
+console.log(otherArr);
+
+console.log(arr.data);
+ *************/
 /************
  arr.remove.allAfterFirst(6);
  arr.remove.allBeforeFirst(3);

@@ -64,8 +64,7 @@ getPublicArray(array = []): PublicArray
 
 #### filter: PublicArrayFilter (read-only)
 ###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
-<details>
-  <summary>Click to see methods</summary>
+<details><summary>view methods</summary>
 
 ```
 filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): PublicArrayFilter

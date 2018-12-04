@@ -64,7 +64,8 @@ getPublicArray(array = []): PublicArray
 
 #### filter: PublicArrayFilter (read-only)
 ###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
-<details><summary>view methods</summary>
+<details>
+<summary>view methods</summary>
 
 ```
 filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): PublicArrayFilter
@@ -80,6 +81,9 @@ filter.byType(
 
 #### getConverted: PublicArrayGetterConverter (read-only)
 ###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+<details>
+<summary>view methods</summary>
+
 ```
 getConverted.toOne(
     reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
@@ -89,9 +93,13 @@ getConverted.toOne(
 getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
     // returns new array where each value in current array is converted into something else.
 ```
+</details>
 
 #### get: PublicArrayGetter (read-only)
 ###### Has methods that return items copied from the array.  None of them modify the array.
+<details>
+<summary>view methods</summary>
+
 ```     
 get.copy(): any[]
     // Returns independent copy of the array.
@@ -166,9 +174,14 @@ get.byType(
 ):  IValueIndexPair[]
     // For explanation of IValueIndexPair, see explanation of get.byTest().
 ```
+</details>
+
  
 #### getAndRemove: PublicArrayGetterRemover (read-only)
 ######  Has methods that both remove and return items from the array:
+<details>
+<summary>view methods</summary>
+
 ```
 getAndRemove.byIndex(index): any
     // removes and returns item identified by passed index.  index can be negative or positive.
@@ -238,6 +251,7 @@ getAndRemove.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
 ): IValueIndexPair[]
 ```
+</details>
 
  
 #### insert: PublicArrayInserter (read-only)

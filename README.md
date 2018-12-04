@@ -78,22 +78,6 @@ filter.byType(
 </details>
 
 
-#### getConverted: PublicArrayGetterConverter (read-only)
-###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
-<details>
-<summary>view methods</summary>
-
-```
-getConverted.toOne(
-    reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
-): any
-    // reduces all values in array down to a single value, and returns that value.
-
-getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
-    // returns new array where each value in current array is converted into something else.
-```
-</details>
-
 #### get: PublicArrayGetter (read-only)
 ###### Has methods that return items copied from the array.  None of them modify the array.
 <details>
@@ -172,6 +156,23 @@ get.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
 ):  IValueIndexPair[]
     // For explanation of IValueIndexPair, see explanation of get.byTest().
+```
+</details>
+
+
+#### getConverted: PublicArrayGetterConverter (read-only)
+###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+<details>
+<summary>view methods</summary>
+
+```
+getConverted.toOne(
+    reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
+): any
+    // reduces all values in array down to a single value, and returns that value.
+
+getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
+    // returns new array where each value in current array is converted into something else.
 ```
 </details>
 
@@ -414,6 +415,10 @@ replace.each(replacementFunction: (currentValue, currentIndex?, array?) => any):
     /**********
     Loops thru array, passing each item into replacementFunction.
     replacementFunction must return the new value you want to give to that index in the array.
+    If you don't want to give a particular index a new value, simply return the value it already 
+    has.
+    Important to remember: even if the currentValue should not be replaced, you still must return
+        something, or else that item will become undefined.
     Example:
     //  this.data is [1,2,3,4,5,6] .
     //  this.replace.each((item) => {
@@ -504,10 +509,10 @@ allPass(testFunction): boolean
     // returns true if all items pass test.
 
 anyPass(testFunction): boolean
-    // returns true if only 1 value passes.
+    // returns true if at least 1 item passes.
 
 indexesThatPass(testFunction): number[]
-    // returns all indexes of items that pass test.
+    // returns all indexes of items that pass test. If none pass, returns empty array.
 
 firstIndexOf(value): number
     // returns index of first instance of value in array. If not found, returns -1.

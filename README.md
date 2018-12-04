@@ -256,6 +256,9 @@ getAndRemove.byType(
  
 #### insert: PublicArrayInserter (read-only)
 ######  Has methods that increase the length of the array and return the PublicArrayInserter instance:
+<details>
+<summary>view methods</summary>
+
 ```
 insert.at(index, values: any[]): PublicArrayInserter
     // inserts values at index.  index can be negative or positive.
@@ -266,9 +269,14 @@ insert.middle(values: any[], offset = 0): PublicArrayInserter
     // middle item. If you want to change the insert position, set the optional offset parameter 
     // to + or - whatever integer you want.
 ```
- 
+</details>
+
+
 #### remove: PublicArrayRemover (read-only)
 ###### Has methods that all remove items from the array and return the PublicArrayRemover instance:
+<details>
+<summary>view methods</summary>
+
 ```
 remove.byIndex(index): PublicArrayRemover
     // index can be negative or positive.
@@ -345,9 +353,14 @@ remove.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
 ): PublicArrayRemover
 ```
+</details>
+
  
 #### replace: PublicArrayReplacer (read-only)
 ###### Has methods that all replace items in the array and return the PublicArrayReplacer instance:
+<details>
+<summary>view methods</summary>
+
 ```
 replace.at(index, newValue): PublicArrayReplacer
     // Replaces item at index with newValue.  index can be negative or positive.
@@ -415,9 +428,14 @@ replace.each(replacementFunction: (currentValue, currentIndex?, array?) => any):
 replace.allWithOne(values: any[], newValue): PublicArrayReplacer
     // Replaces all instances of each value in values with newValue.
 ```
+</details>
+
  
 #### sort: PublicArraySorter (read-only)
 ###### Has methods that change the order of the items and return the PublicArraySorter instance:
+<details>
+<summary>view methods</summary>
+
 ```
 sort.alphabetize(): PublicArraySorter;
     // No item in the array gets modified, but each is treated as a string during the sorting.
@@ -433,11 +451,15 @@ sort.reverse(): PublicArraySorter;
 sort.shuffle(): PublicArraySorter;
     // randomizes the order of items.
 ```
+</details>
+
 
 #### className: string (read-only)
 
 
 ### Methods
+<details>
+<summary>view methods</summary>
 
 ```
 asString(glue = ', '): string
@@ -522,7 +544,7 @@ runMethod_and_returnThis(
     additionalAction?
 ) : this
 ```
-
+</details>
 
 
 ## Usage Examples

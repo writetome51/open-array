@@ -34,10 +34,7 @@ var getPublicArray = require('@writetome51/public-array').getPublicArray;
 ```
 
 
-## Public API
-
-
-### Instantiation
+## Instantiation
 ```
 getPublicArray(array = []): PublicArray
     // Examples:
@@ -46,24 +43,24 @@ getPublicArray(array = []): PublicArray
     // let arr = getPublicArray();
 ```
 
-### Properties
+## Properties
 
-#### data: any[] (read-writable)  
-###### This is the array to be operated on.
+### data: any[] (read-writable)  
+##### This is the array to be operated on.
 
-#### copy: PublicArray (read-only)  
-###### an independent copy of the PublicArray instance
+### copy: PublicArray (read-only)  
+##### an independent copy of the PublicArray instance
 
-#### length: number (read-writable) 
-###### length of array
+### length: number (read-writable) 
+##### length of array
 
-#### isEmpty: boolean (read-only) 
-###### true if this.data is empty
+### isEmpty: boolean (read-only) 
+##### true if this.data is empty
 
-#### notEmpty: boolean (read-only)
+### notEmpty: boolean (read-only)
 
-#### filter: PublicArrayFilter (read-only)
-###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
+### filter: PublicArrayFilter (read-only)
+##### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
 <details>
 <summary>view methods</summary>
 
@@ -79,8 +76,8 @@ filter.byType(
 </details>
 
 
-#### getConverted: PublicArrayGetterConverter (read-only)
-###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+### getConverted: PublicArrayGetterConverter (read-only)
+##### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
 <details>
 <summary>view methods</summary>
 
@@ -95,8 +92,8 @@ getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
 ```
 </details>
 
-#### get: PublicArrayGetter (read-only)
-###### Has methods that return items copied from the array.  None of them modify the array.
+### get: PublicArrayGetter (read-only)
+##### Has methods that return items copied from the array.  None of them modify the array.
 <details>
 <summary>view methods</summary>
 
@@ -177,8 +174,8 @@ get.byType(
 </details>
 
  
-#### getAndRemove: PublicArrayGetterRemover (read-only)
-######  Has methods that both remove and return items from the array:
+### getAndRemove: PublicArrayGetterRemover (read-only)
+#####  Has methods that both remove and return items from the array:
 <details>
 <summary>view methods</summary>
 
@@ -254,8 +251,8 @@ getAndRemove.byType(
 </details>
 
  
-#### insert: PublicArrayInserter (read-only)
-######  Has methods that increase the length of the array and return the PublicArrayInserter instance:
+### insert: PublicArrayInserter (read-only)
+#####  Has methods that increase the length of the array and return the PublicArrayInserter instance:
 <details>
 <summary>view methods</summary>
 
@@ -272,8 +269,8 @@ insert.middle(values: any[], offset = 0): PublicArrayInserter
 </details>
 
 
-#### remove: PublicArrayRemover (read-only)
-###### Has methods that all remove items from the array and return the PublicArrayRemover instance:
+### remove: PublicArrayRemover (read-only)
+##### Has methods that all remove items from the array and return the PublicArrayRemover instance:
 <details>
 <summary>view methods</summary>
 
@@ -356,8 +353,8 @@ remove.byType(
 </details>
 
  
-#### replace: PublicArrayReplacer (read-only)
-###### Has methods that all replace items in the array and return the PublicArrayReplacer instance:
+### replace: PublicArrayReplacer (read-only)
+##### Has methods that all replace items in the array and return the PublicArrayReplacer instance:
 <details>
 <summary>view methods</summary>
 
@@ -431,8 +428,8 @@ replace.allWithOne(values: any[], newValue): PublicArrayReplacer
 </details>
 
  
-#### sort: PublicArraySorter (read-only)
-###### Has methods that change the order of the items and return the PublicArraySorter instance:
+### sort: PublicArraySorter (read-only)
+##### Has methods that change the order of the items and return the PublicArraySorter instance:
 <details>
 <summary>view methods</summary>
 
@@ -454,10 +451,10 @@ sort.shuffle(): PublicArraySorter;
 </details>
 
 
-#### className: string (read-only)
+### className: string (read-only)
 
 
-### Methods
+## Methods
 <details>
 <summary>view methods</summary>
 

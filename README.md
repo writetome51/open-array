@@ -65,6 +65,8 @@ getPublicArray(array = []): PublicArray
 
 ## Properties with methods
 
+Helpful tidbit:  These properties all contain their own `.data` property, which always matches `this.data`
+
 #### filter: PublicArrayFilter (read-only)
 ###### Its methods narrow down the content of this.data and return the PublicArrayFilter instance:
 <details>
@@ -83,7 +85,7 @@ filter.byType(
 
 
 #### get: PublicArrayGetter (read-only)
-###### Has methods that return items copied from this.data .  None of them modify the array.
+###### Its methods return items copied from this.data .  None of them modify this.data .
 <details>
 <summary>view methods</summary>
 
@@ -98,13 +100,13 @@ get.byIndexes(indexes): any[]
     // Returns items identified by passed indexes.  indexes can be negative or positive.
        
 get.head(numItems): any[]
-    // returns numItems from beginning
+    // returns numItems from beginning of this.data
 
 get.tail(numItems): any[]
-    // returns numItems from end
+    // returns numItems from end of this.data
 
 get.between(numItemsToIgnoreAtEachEnd): any[]
-    // Returns middle of array, between numItemsToIgnoreAtEachEnd
+    // Returns middle of this.data, between numItemsToIgnoreAtEachEnd
        
 get.adjacentAt(startingIndex, numItemsToGet): any[]
     // Returns adjacent items.  startingIndex can be negative or positive.
@@ -112,7 +114,7 @@ get.adjacentAt(startingIndex, numItemsToGet): any[]
 get.adjacentToValue(info: IAdjacentToValueInfo): any[]
     /**************
     Returns adjacent items including, or near, a particular value.
-    Only applies to the first instance of value found in array.
+    Only applies to the first instance of value found in this.data.
     The parameter 'info' is an object that looks like this:
     {
         value: any except object (the value to search for in the array),
@@ -147,25 +149,28 @@ get.duplicates(): any[]
     // returns every instance of a duplicate, so you may get multiple instances.       
        
 get.shuffled(): any[]
-    // returns new version of the array with the order of items randomized.
+    // returns copy of this.data with the order of items randomized.
+    
+/************
+These last 2 methods both return an array of IValueIndexPairs.  A IValueIndexPair looks like this:
+{value: any,  index: number}
+
+Each one represents an item from this.data .
+************/
 
 get.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): IValueIndexPair[]
-    /***************
-    Almost exactly like Array.filter(), except it returns array of IValueIndexPairs.
-    A IValueIndexPair is this object: {value: any, index: integer}
-    It's both the value filtered by the testFunction and its index.
-    ***************/
+    // returns any item that passes testFunction.
         
 get.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
 ):  IValueIndexPair[]
-    // For explanation of IValueIndexPair, see explanation of get.byTest().
+    // returns any item that is passed type.
 ```
 </details>
 
 
 #### getConverted: PublicArrayGetterConverter (read-only)
-###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify the array.
+###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify this.data .
 <details>
 <summary>view methods</summary>
 
@@ -173,16 +178,16 @@ get.byType(
 getConverted.toOne(
     reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
 ): any
-    // reduces all values in array down to a single value, and returns that value.
+    // reduces all values in this.data down to a single value, and returns that value.
 
 getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
-    // returns new array where each value in current array is converted into something else.
+    // returns new array where each value in this.data is converted into something else.
 ```
 </details>
 
  
 #### getAndRemove: PublicArrayGetterRemover (read-only)
-######  Has methods that both remove and return items from the array:
+######  Its methods both remove and return items from this.data:
 <details>
 <summary>view methods</summary>
 
@@ -200,7 +205,7 @@ getAndRemove.tail(numItemsToRemove): any[]
     // removes and returns numItemsToRemove from end
 
 getAndRemove.between(numItemsToKeepAtEachEnd): any[]
-    // removes and returns middle of array, between numItemsToKeepAtEachEnd
+    // removes and returns middle of this.data, between numItemsToKeepAtEachEnd
 
 getAndRemove.adjacentAt(startingIndex, numItemsToRemove): any[]
     // removes and returns adjacent items.  startingIndex can be negative or positive.
@@ -208,7 +213,7 @@ getAndRemove.adjacentAt(startingIndex, numItemsToRemove): any[]
 getAndRemove.adjacentToValue(info: IAdjacentToValueInfo): any[]
     /********
     Removes and returns adjacent items including, or near, a particular value.
-    Only applies to the first instance of value found in array.
+    Only applies to the first instance of value found in this.data .
     The parameter 'info' is an object that looks like this:
     {
         value: any except object (the value to search for in the array),
@@ -218,8 +223,8 @@ getAndRemove.adjacentToValue(info: IAdjacentToValueInfo): any[]
     }
     Example:
     	 // this.data is [1,2,3,4,5,6,7,8,9,10]
-    	 let numbers = this.getAndRemove.adjacentToValue({value:5, offset: -2, howMany:3});
-    	 // numbers is now [3,4,5].  this.data is now [1,2,6,7,8,9,10]
+    	 let numbers = this.getAndRemove.adjacentToValue({value:5, offset: 0, howMany:4});
+    	 // numbers is now [5,6,7,8].  this.data is now [1,2,3,4,9,10]
     *********/
 
 // For all the functions below, the parameter 'value' cannot be object.
@@ -243,23 +248,24 @@ getAndRemove.duplicates(): any[]
 These last 2 methods both return an array of IValueIndexPairs.  A IValueIndexPair looks like this:
 {value: any,  index: number}
 
-Each one represents a removed array item.
+Each one represents an item removed from this.data .
 ************/
  
 getAndRemove.byTest(
     testFunction: (currentValue, currentIndex?, array?) => boolean
 ): IValueIndexPair[]
-    // removes and returns any value that passes test.
+    // removes and returns any item that passes testFunction.
 
 getAndRemove.byType(
     type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
 ): IValueIndexPair[]
+    // removes and returns any item that is passed type.
 ```
 </details>
 
  
 #### insert: PublicArrayInserter (read-only)
-######  Has methods that increase the length of the array and return the PublicArrayInserter instance:
+######  Has methods that increase the length of this.data and return the PublicArrayInserter instance:
 <details>
 <summary>view methods</summary>
 
@@ -268,8 +274,8 @@ insert.at(index, values: any[]): PublicArrayInserter
     // inserts values at index.  index can be negative or positive.
 
 insert.middle(values: any[], offset = 0): PublicArrayInserter
-    // inserts values in middle of the array.
-    // By default, if the array has odd number of items, values will be inserted just before the
+    // inserts values in middle of this.data .
+    // By default, if this.data has odd number of items, values will be inserted just before the
     // middle item. If you want to change the insert position, set the optional offset parameter 
     // to + or - whatever integer you want.
 ```
@@ -277,7 +283,7 @@ insert.middle(values: any[], offset = 0): PublicArrayInserter
 
 
 #### remove: PublicArrayRemover (read-only)
-###### Has methods that all remove items from the array and return the PublicArrayRemover instance:
+###### Has methods that all remove items from this.data and return the PublicArrayRemover instance:
 <details>
 <summary>view methods</summary>
 
@@ -294,7 +300,7 @@ remove.adjacentAt(startingIndex, numItemsToRemove): PublicArrayRemover
 remove.adjacentToValue(info: IAdjacentToValueInfo): PublicArrayRemover
     /************
     Removes adjacent items including, or near, a particular value.
-    Only applies to the first instance of value found in array.
+    Only applies to the first instance of value found in this.data .
     The parameter 'info' is an object that looks like this:
     {
         value: any except object (the value to search for in the array),
@@ -304,15 +310,15 @@ remove.adjacentToValue(info: IAdjacentToValueInfo): PublicArrayRemover
     }
     Example:
         // arr.data is [1,2,3,4,5,6,7,8,9,10]
-        arr.remove.adjacentToValue({value:5, offset: -2, howMany:3});
-        // arr.data is now [1,2,6,7,8,9,10]
+        arr.remove.adjacentToValue({value:5, offset: 1, howMany:2});
+        // arr.data is now [1,2,3,4,5,8,9,10]
     *************/
 
 remove.head(numItemsToRemove): PublicArrayRemover
-    // Removes numItemsToRemove from array's beginning.
+    // Removes numItemsToRemove from beginning of this.data .
 
 remove.tail(numItemsToRemove): PublicArrayRemover
-    // Removes numItemsToRemove from array's end.
+    // Removes numItemsToRemove from end of this.data .
     
 remove.between(numItemsToKeepAtEachEnd): PublicArrayRemover
     // Removes everything between numItemsToKeepAtEachEnd.
@@ -361,7 +367,7 @@ remove.byType(
 
  
 #### replace: PublicArrayReplacer (read-only)
-###### Has methods that all replace items in the array and return the PublicArrayReplacer instance:
+###### Its methods all replace items in this.data and return the PublicArrayReplacer instance:
 <details>
 <summary>view methods</summary>
 
@@ -377,7 +383,7 @@ replace.adjacentAt(startingIndex, newValues: any[]): PublicArrayReplacer
 replace.adjacentToValue(info: IAdjacentToValueInfo, newValues: any[]): PublicArrayReplacer
     /**********
     Replaces adjacent items including, or near a particular value, with newValues.
-    Only applies to the first instance of value found in array.
+    Only applies to the first instance of value found in this.data .
     The parameter 'info' is an object that looks like this:
     {
         value: any except object (the value to search for in the array),
@@ -386,10 +392,10 @@ replace.adjacentToValue(info: IAdjacentToValueInfo, newValues: any[]): PublicArr
        	howMany: integer greater than zero (it's how many adjacent items to replace)
     }
     Example:
-	//  array is [1,2,3,4,5,6,7,8] .
+	//  this.data is [1,2,3,4,5,6,7,8]
 	//  let newValues = [20,30,40];
 	//  this.adjacentToValue({value: 5, offset: -1, howMany: 2},  newValues);
-	//  array is now [1,2,3,20,30,40,6,7,8]
+	//  this.data is now [1,2,3,20,30,40,6,7,8]
     **********/
 
 replace.between(numItemsToKeepAtEachEnd, newValues: any[]): PublicArrayReplacer
@@ -407,19 +413,19 @@ replace.firstOf(value, newValue): PublicArrayReplacer
     // Replaces first instance of value with newValue.
     
 replace.firstOfEach(values: any[], newValues: any[]): PublicArrayReplacer
-    // First instance of values[i] found in array gets replaced with newValues[i].
+    // First instance of values[i] found in this.data gets replaced with newValues[i].
     
 replace.allOf(value, newValue): PublicArrayReplacer
     // Replaces all instances of value with newValue.
     
 replace.allOfEach(values: any[], newValues: any[]): PublicArrayReplacer
-    // All instances of values[i] found in array get replaced with newValues[i].
+    // All instances of values[i] found in this.data get replaced with newValues[i].
     
 replace.each(replacementFunction: (currentValue, currentIndex?, array?) => any): PublicArrayReplacer
     /**********
-    Loops thru array, passing each item into replacementFunction.
-    replacementFunction must return the new value you want to give to that index in the array.
-    If you don't want to give a particular index a new value, simply return the value it already 
+    Loops thru this.data, passing each item into replacementFunction.
+    replacementFunction must return the new value you want to give to that item in this.data .
+    If you don't want to give a particular item a new value, simply return the value it already 
     has.
     Important to remember: even if the currentValue should not be replaced, you still must return
         something, or else that item will become undefined.
@@ -440,19 +446,19 @@ replace.allWithOne(values: any[], newValue): PublicArrayReplacer
 
  
 #### sort: PublicArraySorter (read-only)
-###### Has methods that change the order of the items and return the PublicArraySorter instance:
+###### Its methods change the order of items in this.data and return the PublicArraySorter instance:
 <details>
 <summary>view methods</summary>
 
 ```
 sort.alphabetize(): PublicArraySorter;
-    // No item in the array gets modified, but each is treated as a string during the sorting.
+    // No item in this.data gets modified, but each is treated as a string during the sorting.
 
 sort.numbersAscending(): PublicArraySorter;
-    // If not all items in array are of type 'number', it triggers error.
+    // If not all items in this.data are of type 'number', it triggers error.
 
 sort.numbersDescending(): PublicArraySorter;
-    // If not all items in array are of type 'number', it triggers error.
+    // If not all items in this.data are of type 'number', it triggers error.
 
 sort.reverse(): PublicArraySorter;
 
@@ -480,27 +486,27 @@ asString(glue = ', '): string
 ************/
 	
 has(value): boolean
-    // returns true if array contains value.
+    // returns true if this.data contains value.
 	
 hasAll(values: any[]): boolean
-    // returns true if array contains every value in values.
+    // returns true if this.data contains every value in values.
 	
 hasAny(values: any[]): boolean
-    // returns true if array contains at least 1 value in values.
+    // returns true if this.data contains at least 1 value in values.
 	
 hasAdjacent(values: any[]): boolean
-    // returns true if array contains exact sequence of values.
+    // returns true if this.data contains exact sequence of values.
     // Example: if this.data is [10,1,2,3,11], then this.hasAdjacent([1,2,3]) returns true.
     
 startsWith(values: any[]): boolean
-   // returns true if array starts with exact sequence of values.
+   // returns true if this.data starts with exact sequence of values.
 
 endsWith(values: any[]): boolean
-    // returns true if array ends with exact sequence of values.
+    // returns true if this.data ends with exact sequence of values.
 
 matches(array): boolean
-    // returns true if entire array matches passed array exactly.
-    // returns false if passed array contains object.
+    // returns true if this.data matches passed array exactly.
+    // will return false if this.data or passed array contains object.
 
 // For the next 3 methods:
 // testFunction is a callback with same signature as callback passed to
@@ -509,28 +515,28 @@ matches(array): boolean
 // checks if currentValue passes test. If yes, it returns true.
 
 allPass(testFunction): boolean
-    // returns true if all items pass test.
+    // returns true if all items in this.data pass test.
 
 anyPass(testFunction): boolean
-    // returns true if at least 1 item passes.
+    // returns true if at least 1 item passes test.
 
 indexesThatPass(testFunction): number[]
-    // returns all indexes of items that pass test. If none pass, returns empty array.
+    // returns indexes of all items that pass test. If none pass, returns empty array.
 
 firstIndexOf(value): number
-    // returns index of first instance of value in array. If not found, returns -1.
+    // returns index of first instance of value in this.data. If not found, returns -1.
 
 lastIndexOf(value): number
-    // returns index of last instance of value in array.  If not found, returns -1.
+    // returns index of last instance of value in this.data.  If not found, returns -1.
 
 indexesOf(value): number[]
-    // returns all indexes of value in array. If not found, returns empty array.
+    // returns all indexes of value in this.data. If not found, returns empty array.
 
 append(values: any[]): this
-    // attaches values to end of array.
+    // attaches values to end of this.data.
 
 prepend(values: any[]): this
-    // attaches values to beginning of array.
+    // attaches values to beginning of this.data.
 
 forEach(iterationFunction): this
     // Behaves same as Array.forEach()

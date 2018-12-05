@@ -1,7 +1,7 @@
 {
   "name": "@writetome51/public-array",
   "version": "1.0.0",
-  "description": "A typescript class with clear method names for manipulating arrays",
+  "description": "A TypeScript/JavaScript class for general array manipulation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

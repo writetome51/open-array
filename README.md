@@ -13,7 +13,7 @@ arr.remove.head(1); // arr.data is now [2,3,4]
 if (arr.notEmpty) arr.prepend([10,11]); // arr.data is now [10,11,2,3,4]
 arr.append([100,200,300]); // arr.data is now [10,11,2,3,4,100,200,300]
 ```
-To actually see or get the array itself, you must access PublicArray's `data` property:
+To actually see or get the array itself, you must access PublicArray's `.data` property:
 
 `console.log(arr.data); // logs '[10,11,2,3,4,100,200,300]' `
 
@@ -54,38 +54,42 @@ getPublicArray(array = []): PublicArray
 ###### an independent copy of the PublicArray instance
 
 #### length: number (read-writable) 
-###### length of array
+###### length of this.data
 
 #### isEmpty: boolean (read-only) 
 ###### true if this.data is empty
 
 #### notEmpty: boolean (read-only)
 
+#### className: string (read-only)
+
+## Properties with methods
+
 #### filter: PublicArrayFilter (read-only)
-###### Has methods that narrow down the content of the array and return the PublicArrayFilter instance:
+###### Its methods narrow down the content of this.data and return the PublicArrayFilter instance:
 <details>
 <summary>view methods</summary>
 
 ```
 filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): PublicArrayFilter
-    // Narrows down the array to only the values that pass testFunction.
+    // Narrows down this.data to only the values that pass testFunction.
 
 filter.byType(
     type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined'
 ): PublicArrayFilter
-    // Narrows down the array to only values that are the specified type.
+    // Narrows down this.data to only the values that are the specified type.
 ```
 </details>
 
 
 #### get: PublicArrayGetter (read-only)
-###### Has methods that return items copied from the array.  None of them modify the array.
+###### Has methods that return items copied from this.data .  None of them modify the array.
 <details>
 <summary>view methods</summary>
 
 ```     
 get.copy(): any[]
-    // Returns independent copy of the array.
+    // Returns independent copy of this.data .
 
 get.byIndex(index): any
     // Returns item identified by passed index.  index can be negative or positive.
@@ -458,7 +462,6 @@ sort.shuffle(): PublicArraySorter;
 </details>
 
 
-#### className: string (read-only)
 </details>
 
 
@@ -561,6 +564,9 @@ runMethod_and_returnThis(
 ```
 // changing the array content:
 arr.data = [{prop1: 'yes', prop2: 'no'}, {prop1: 'no', prop2: 'yes'}];
+
+// changing the array content without breaking its memory reference:
+arr.set( [ {prop1: 'yes', prop2: 'no'}, {prop1: 'no', prop2: 'yes'} ] );
 ```
 
 ## Performance

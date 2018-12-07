@@ -1,27 +1,32 @@
 import { getPublicArray } from './index';
-import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
 
-console.log('hello');
-//let arr = new PublicArrayReplacer([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
 let arr = getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-console.log(arr.remove.byIndex(0).byIndexes([1,3,5]).adjacentAt(1, 2));// [2, 8, 9]
-let arrCopy = arr.copy;
-arrCopy.data = [1,2];
-console.log(arrCopy.data);
+console.log(
+	arr.remove
+		.byIndexes([0, 2, 4, 6])
+		.data
+);// [2, 4, 6, 8, 9]
+
+arr.replace.each((value) => (value / 3));
 console.log(arr.data);
+console.log(arr.remove.between(1).data); // [2, 9]
+let arrCopy = arr.copy;
+arr.data = [1, 2];
+console.log(arrCopy.data); // [2, 9]
+console.log(arr.data);// [1, 2]
 
 /****************
 
 
-let otherArr = arr.data;
+ let otherArr = arr.data;
 
-otherArr.length = 0;
+ otherArr.length = 0;
 
-console.log(otherArr);
+ console.log(otherArr);
 
-console.log(arr.data);
+ console.log(arr.data);
  *************/
-
 
 
 /************

@@ -1,20 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = require("./index");
-var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+var arrays_match_1 = require("@writetome51/arrays-match");
+var PublicArray_1 = require("./privy/PublicArray");
+var arr = new PublicArray_1.PublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 // Test 1: getPublicArray() must return instance of PublicArray:
 if (arr.className && arr.className === 'PublicArray')
     console.log('test 1 passed');
 else
     console.log('test 1 FAILED');
+//Test 1A: the instance must contain the array passed into getPublicArray():
+if (arrays_match_1.arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+    console.log('test 1A passed');
+else
+    console.log('test 1A FAILED');
+// Test 2: PublicArray.filter must be instance of PublicArrayFilter:
+if (arr.filter.className && arr.filter.className === 'PublicArrayFilter')
+    console.log('test 2 passed');
+else
+    console.log('test 2 FAILED');
 /*******************
- // Test 1A: the instance must contain the array passed into getPublicArray():
- if (arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9])) console.log('test 1A passed');
- else console.log('test 1A FAILED');
 
- // Test 2: :
- if (arr.className && arr.className === 'PublicArray') console.log('test 2 passed');
- else console.log('test 2 FAILED');
+
+
 
  // Test 2A: the instance must contain the array passed into getPublicArray():
  if (arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9])) console.log('test 1A passed');
@@ -37,8 +44,10 @@ else
  console.log(otherArr);
 
  console.log(arr.data);
- *************/
-/************
+
+
+
+
  arr.remove.allAfterFirst(6);
  arr.remove.allBeforeFirst(3);
  arr.prepend([100]);
@@ -65,4 +74,4 @@ else
  console.log(arr.sort.shuffle());
 
  console.log(arr.sort);
- **************/ 
+ *************/ 

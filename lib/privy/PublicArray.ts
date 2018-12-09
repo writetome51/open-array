@@ -2,14 +2,6 @@ import { append, prepend } from '@writetome51/array-append-prepend';
 import { setArray } from '@writetome51/set-array';
 import { DIFactory } from '@writetome51/di-factory';
 import { PublicArrayContent } from '@writetome51/public-array-content';
-import { PublicArrayFilter } from '@writetome51/public-array-filter';
-import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
-import { PublicArrayGetter } from '@writetome51/public-array-getter';
-import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
-import { PublicArrayInserter } from '@writetome51/public-array-inserter';
-import { PublicArrayRemover } from '@writetome51/public-array-remover';
-import { PublicArraySorter } from '@writetome51/public-array-sorter';
-import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
 
 
 /***********************
@@ -30,6 +22,7 @@ import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
 
 export class PublicArray extends PublicArrayContent {
 
+	private _dependencyClasses: { path: string, name: string }[];
 	private _filter; // PublicArrayFilter
 	private _getConverted; // PublicArrayGetterConverter
 	private _get; // PublicArrayGetter
@@ -61,27 +54,33 @@ export class PublicArray extends PublicArrayContent {
 
 		super(data);
 
+		this._dependencyClasses = [
+			{path: '@writetome51/public-array-filter', name: 'PublicArrayFilter'},
+			{path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter'},
+			{path: '@writetome51/public-array-getter', name: 'PublicArrayGetter'},
+			{path: '@writetome51/public-array-getter-remover', name: 'PublicArrayGetterRemover'},
+			{path: '@writetome51/public-array-inserter', name: 'PublicArrayInserter'},
+			{path: '@writetome51/public-array-remover', name: 'PublicArrayRemover'},
+			{path: '@writetome51/public-array-replacer', name: 'PublicArrayReplacer'},
+			{path: '@writetome51/public-array-sorter', name: 'PublicArraySorter'}
+		];
+
 		this._createGetterAndOrSetterForEach(
-			// each of these represents a public property:
-			[
-				{name: 'filter', class: PublicArrayFilter},
-				{name: 'getConverted', class: PublicArrayGetterConverter},
-				{name: 'get', class: PublicArrayGetter},
-				{name: 'getAndRemove', class: PublicArrayGetterRemover},
-				{name: 'insert', class: PublicArrayInserter},
-				{name: 'remove', class: PublicArrayRemover},
-				{name: 'replace', class: PublicArrayReplacer},
-				{name: 'sort', class: PublicArraySorter}
-			],
+			// each of these is a public property:
+			['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
+				'remove', 'replace', 'sort'],
 			{
-				get_getterFunction: (property) => {
-					// Lazy-Loading is used to instantiate these properties:
-					if (!(this[`_${property.name}`])) { // if property not set...
-						this[`_${property.name}`] = DIFactory.getInstance(property.class);
-					}
+				get_getterFunction: (property, index) => {
 					return () => {
-						this[`_${property.name}`].data = this.data;
-						return this[`_${property.name}`];
+						// Lazy-Loading is used to instantiate these properties:
+						if (!(this[`_${property}`])) { // if property not set...
+							let dependencyClass = this._dependencyClasses[index];
+							// @ts-ignore
+							let modul = require(dependencyClass.path);
+							this[`_${property}`] = DIFactory.getInstance(modul[dependencyClass.name]);
+						}
+						this[`_${property}`].data = this.data;
+						return this[`_${property}`];
 					};
 				}
 			}

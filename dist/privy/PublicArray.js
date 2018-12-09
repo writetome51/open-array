@@ -17,14 +17,6 @@ var array_append_prepend_1 = require("@writetome51/array-append-prepend");
 var set_array_1 = require("@writetome51/set-array");
 var di_factory_1 = require("@writetome51/di-factory");
 var public_array_content_1 = require("@writetome51/public-array-content");
-var public_array_filter_1 = require("@writetome51/public-array-filter");
-var public_array_getter_converter_1 = require("@writetome51/public-array-getter-converter");
-var public_array_getter_1 = require("@writetome51/public-array-getter");
-var public_array_getter_remover_1 = require("@writetome51/public-array-getter-remover");
-var public_array_inserter_1 = require("@writetome51/public-array-inserter");
-var public_array_remover_1 = require("@writetome51/public-array-remover");
-var public_array_sorter_1 = require("@writetome51/public-array-sorter");
-var public_array_replacer_1 = require("@writetome51/public-array-replacer");
 /***********************
  This class is for general array manipulation.  It's called PublicArray because it
  contains an array in a public property: 'data' .
@@ -56,26 +48,31 @@ var PublicArray = /** @class */ (function (_super) {
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
+        _this._dependencyClasses = [
+            { path: '@writetome51/public-array-filter', name: 'PublicArrayFilter' },
+            { path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter' },
+            { path: '@writetome51/public-array-getter', name: 'PublicArrayGetter' },
+            { path: '@writetome51/public-array-getter-remover', name: 'PublicArrayGetterRemover' },
+            { path: '@writetome51/public-array-inserter', name: 'PublicArrayInserter' },
+            { path: '@writetome51/public-array-remover', name: 'PublicArrayRemover' },
+            { path: '@writetome51/public-array-replacer', name: 'PublicArrayReplacer' },
+            { path: '@writetome51/public-array-sorter', name: 'PublicArraySorter' }
+        ];
         _this._createGetterAndOrSetterForEach(
-        // each of these represents a public property:
-        [
-            { name: 'filter', class: public_array_filter_1.PublicArrayFilter },
-            { name: 'getConverted', class: public_array_getter_converter_1.PublicArrayGetterConverter },
-            { name: 'get', class: public_array_getter_1.PublicArrayGetter },
-            { name: 'getAndRemove', class: public_array_getter_remover_1.PublicArrayGetterRemover },
-            { name: 'insert', class: public_array_inserter_1.PublicArrayInserter },
-            { name: 'remove', class: public_array_remover_1.PublicArrayRemover },
-            { name: 'replace', class: public_array_replacer_1.PublicArrayReplacer },
-            { name: 'sort', class: public_array_sorter_1.PublicArraySorter }
-        ], {
-            get_getterFunction: function (property) {
-                // Lazy-Loading is used to instantiate these properties:
-                if (!(_this["_" + property.name])) { // if property not set...
-                    _this["_" + property.name] = di_factory_1.DIFactory.getInstance(property.class);
-                }
+        // each of these is a public property:
+        ['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
+            'remove', 'replace', 'sort'], {
+            get_getterFunction: function (property, index) {
                 return function () {
-                    _this["_" + property.name].data = _this.data;
-                    return _this["_" + property.name];
+                    // Lazy-Loading is used to instantiate these properties:
+                    if (!(_this["_" + property])) { // if property not set...
+                        var dependencyClass = _this._dependencyClasses[index];
+                        // @ts-ignore
+                        var modul = require(dependencyClass.path);
+                        _this["_" + property] = di_factory_1.DIFactory.getInstance(modul[dependencyClass.name]);
+                    }
+                    _this["_" + property].data = _this.data;
+                    return _this["_" + property];
                 };
             }
         });

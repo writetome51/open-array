@@ -23,7 +23,7 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
 export class PublicArray extends PublicArrayContent {
 
 
- // readonly  copy: PublicArray (an independent copy of this instance).
+	// readonly  copy: PublicArray (an independent copy of this instance).
 	readonly filter; // PublicArrayFilter
 	readonly getConverted; // PublicArrayGetterConverter;
 	readonly get; // PublicArrayGetter;

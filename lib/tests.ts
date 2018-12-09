@@ -1,5 +1,5 @@
 import { arraysMatch } from '@writetome51/arrays-match';
-import { PublicArray } from './PublicArray';
+import { PublicArray } from './index';
 
 
 let arr = new PublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -49,7 +49,7 @@ if (arraysMatch(arr.get.data, arr.data)) console.log('test 4A passed');
 else console.log('test 4A FAILED');
 
 // Test 4B: arr.data must remain in-sync with arr.get.data after calling an arr.get method:
-arr.get.byIndexes([0,2]);
+arr.get.byIndexes([0, 2]);
 if (arraysMatch(arr.get.data, arr.data)) console.log('test 4B passed');
 else console.log('test 4B FAILED');
 
@@ -64,7 +64,7 @@ else console.log('test 5A FAILED');
 
 // Test 5B: arr.data must remain in-sync with arr.getAndRemove.data after calling an arr.getAndRemove
 // method:
-arr.getAndRemove.byIndexes([0,2]);
+arr.getAndRemove.byIndexes([0, 2]);
 if (arraysMatch(arr.getAndRemove.data, arr.data)) console.log('test 5B passed');
 else console.log('test 5B FAILED');
 
@@ -96,48 +96,6 @@ arr.remove.firstOf('h');
 if (arraysMatch(arr.remove.data, arr.data)) console.log('test 7B passed');
 else console.log('test 7B FAILED');
 
-
-
-
-
-/****************
-
-
- let otherArr = arr.data;
-
- otherArr.length = 0;
-
- console.log(otherArr);
-
- console.log(arr.data);
-
-
-
-
- arr.remove.allAfterFirst(6);
- arr.remove.allBeforeFirst(3);
- arr.prepend([100]);
- arr.append([100]);
-
- let anotherArr = arr.copy;
-
- arr.append([888]);
-
- anotherArr.append([3000]);
-
- console.log(arr.data);
- console.log(anotherArr.data);
- console.log(arr.length);
-
- let hasStrings = arr.anyPass((item) => typeof item === 'string' );
-
- console.log(hasStrings);
-
- console.log(arr.firstIndexOf(4));
-
- console.log(arr.startsWith([100, 3]));
-
- console.log(arr.sort.shuffle());
-
- console.log(arr.sort);
- *************/
+let copy = arr.copy;
+copy.data = ['j'];
+console.log(arr.data);

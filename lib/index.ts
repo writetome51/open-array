@@ -22,6 +22,8 @@ DIFactory.register(
 );
 
 
+// This must be used to instantiate PublicArray:
+
 export function getPublicArray(array = []) {
 	return DIFactory.getInstance(PublicArray, [array]);
 }

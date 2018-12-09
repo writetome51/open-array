@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/writetome51/public-array#readme",
   "devDependencies": {
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "@writetome51/arrays-match": "~1.0.4"
   },
   "dependencies": {
     "@writetome51/public-array-remover": "~1.0.1",

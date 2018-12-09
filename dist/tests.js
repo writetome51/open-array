@@ -1,17 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("./index");
+var arrays_match_1 = require("@writetome51/arrays-match");
 var arr = index_1.getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+// Test 1: getPublicArray() must return instance of PublicArray:
+if (arr.className && arr.className === 'PublicArray')
+    console.log('test 1 passed');
+else
+    console.log('test 1 FAILED');
+// Test 1A: the instance must contain the array passed into getPublicArray():
+if (arrays_match_1.arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+    console.log('test 1A passed');
+else
+    console.log('test 1A FAILED');
 console.log(arr.remove
     .byIndexes([0, 2, 4, 6])
     .data); // [2, 4, 6, 8, 9]
-arr.replace.each(function (value) { return (value / 3); });
-console.log(arr.data);
-console.log(arr.remove.between(1).data); // [2, 9]
-var arrCopy = arr.copy;
-arr.data = [1, 2];
-console.log(arrCopy.data); // [2, 9]
-console.log(arr.data); // [1, 2]
 /****************
 
 

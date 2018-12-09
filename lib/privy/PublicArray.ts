@@ -1,15 +1,15 @@
 import { append, prepend } from '@writetome51/array-append-prepend';
 import { setArray } from '@writetome51/set-array';
 import { DIFactory } from '@writetome51/di-factory';
-import { PublicArrayRemover } from '@writetome51/public-array-remover';
 import { PublicArrayContent } from '@writetome51/public-array-content';
-import { PublicArrayGetter } from '@writetome51/public-array-getter';
-import { PublicArrayInserter } from '@writetome51/public-array-inserter';
-import { PublicArraySorter } from '@writetome51/public-array-sorter';
-import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
-import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
-import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
-import { PublicArrayFilter } from '@writetome51/public-array-filter';
+// import { PublicArrayRemover } from '@writetome51/public-array-remover';
+// import { PublicArrayGetter } from '@writetome51/public-array-getter';
+// import { PublicArrayInserter } from '@writetome51/public-array-inserter';
+// import { PublicArraySorter } from '@writetome51/public-array-sorter';
+// import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
+// import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
+// import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
+// import { PublicArrayFilter } from '@writetome51/public-array-filter';
 
 
 /**************
@@ -31,30 +31,29 @@ import { PublicArrayFilter } from '@writetome51/public-array-filter';
 export class PublicArray extends PublicArrayContent {
 
 
-	 //Public Properties:
+	//Public Properties:
 
-	 //readonly  copy: PublicArray; // independent copy of this instance.
-	 readonly  filter: PublicArrayFilter;
-	 readonly  getConverted: PublicArrayGetterConverter;
-	 readonly  get: PublicArrayGetter;
-	 readonly  getAndRemove: PublicArrayGetterRemover;
-	 readonly  insert: PublicArrayInserter;
-	 readonly  remove: PublicArrayRemover;
-	 readonly  replace: PublicArrayReplacer;
-	 readonly  sort: PublicArraySorter;
-
+	// readonly  copy: PublicArray (an independent copy of this instance).
+	// readonly  filter: PublicArrayFilter;
+	// readonly  getConverted: PublicArrayGetterConverter;
+	// readonly  get: PublicArrayGetter;
+	// readonly  getAndRemove: PublicArrayGetterRemover;
+	// readonly  insert: PublicArrayInserter;
+	// readonly  remove: PublicArrayRemover;
+	// readonly  replace: PublicArrayReplacer;
+	// readonly  sort: PublicArraySorter;
 
 
 	constructor(
 		// begin injected dependencies...
-		private _filter: PublicArrayFilter,
-		private _getConverted: PublicArrayGetterConverter,
-		private _get: PublicArrayGetter,
-		private _getAndRemove: PublicArrayGetterRemover,
-		private _insert: PublicArrayInserter,
-		private _remove: PublicArrayRemover,
-		private _replace: PublicArrayReplacer,
-		private _sort: PublicArraySorter,
+		private _filter, //: PublicArrayFilter,
+		private _getConverted, //: PublicArrayGetterConverter,
+		private _get, //: PublicArrayGetter,
+		private _getAndRemove, //: PublicArrayGetterRemover,
+		private _insert, //: PublicArrayInserter,
+		private _remove, //: PublicArrayRemover,
+		private _replace, //: PublicArrayReplacer,
+		private _sort, //: PublicArraySorter,
 		// ... end injected dependencies
 
 		data = [] // the actual array, represented by inherited property this.data

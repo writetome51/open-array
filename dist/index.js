@@ -18,6 +18,7 @@ di_factory_1.DIFactory.register({
         public_array_remover_1.PublicArrayRemover, public_array_replacer_1.PublicArrayReplacer, public_array_sorter_1.PublicArraySorter
     ]
 });
+// This must be used to instantiate PublicArray:
 function getPublicArray(array) {
     if (array === void 0) { array = []; }
     return di_factory_1.DIFactory.getInstance(PublicArray_1.PublicArray, [array]);

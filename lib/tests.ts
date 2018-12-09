@@ -2,12 +2,6 @@ import { getPublicArray } from './index';
 import { arraysMatch } from '@writetome51/arrays-match';
 
 
-/*******************
- let arr: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
- arr.splice(10, 0, [1]);
- console.log(arr);
- *****************/
-
 let arr = getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 // Test 1: getPublicArray() must return instance of PublicArray:

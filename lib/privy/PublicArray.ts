@@ -2,19 +2,14 @@ import { append, prepend } from '@writetome51/array-append-prepend';
 import { setArray } from '@writetome51/set-array';
 import { DIFactory } from '@writetome51/di-factory';
 import { PublicArrayContent } from '@writetome51/public-array-content';
-/*********************
- These imports are commented out to help improve performance.
- They're still kept here as a record of the npm module each comes from.
-
-// import { PublicArrayRemover } from '@writetome51/public-array-remover';
-// import { PublicArrayGetter } from '@writetome51/public-array-getter';
-// import { PublicArrayInserter } from '@writetome51/public-array-inserter';
-// import { PublicArraySorter } from '@writetome51/public-array-sorter';
-// import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
-// import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
-// import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
-// import { PublicArrayFilter } from '@writetome51/public-array-filter';
- ********************/
+import { PublicArrayFilter } from '@writetome51/public-array-filter';
+import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
+import { PublicArrayGetter } from '@writetome51/public-array-getter';
+import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
+import { PublicArrayInserter } from '@writetome51/public-array-inserter';
+import { PublicArrayRemover } from '@writetome51/public-array-remover';
+import { PublicArraySorter } from '@writetome51/public-array-sorter';
+import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
 
 
 /***********************
@@ -35,10 +30,21 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
 
 export class PublicArray extends PublicArrayContent {
 
+	private _filter; // PublicArrayFilter
+	private _getConverted; // PublicArrayGetterConverter
+	private _get; // PublicArrayGetter
+	private _getAndRemove; // PublicArrayGetterRemover
+	private _insert; // PublicArrayInserter
+	private _remove; // PublicArrayRemover
+	private _replace; // PublicArrayReplacer
+	private _sort; // PublicArraySorter
+
 
 	// Public Properties:
 
 	// readonly  copy: PublicArray (an independent copy of this instance).
+
+	// Lazy-Loading is used to instantiate these properties:
 	// readonly  filter: PublicArrayFilter;
 	// readonly  getConverted: PublicArrayGetterConverter;
 	// readonly  get: PublicArrayGetter;
@@ -50,31 +56,32 @@ export class PublicArray extends PublicArrayContent {
 
 
 	constructor(
-		// begin injected dependencies...
-		private _filter, // PublicArrayFilter,
-		private _getConverted, // PublicArrayGetterConverter,
-		private _get, // PublicArrayGetter,
-		private _getAndRemove, // PublicArrayGetterRemover,
-		private _insert, // PublicArrayInserter,
-		private _remove, // PublicArrayRemover,
-		private _replace, // PublicArrayReplacer,
-		private _sort, // PublicArraySorter,
-		// ... end injected dependencies
-
 		data = [] // the actual array, represented by inherited property this.data
 	) {
 
 		super(data);
 
 		this._createGetterAndOrSetterForEach(
-			// each of these is a public property:
-			['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
-				'remove', 'replace', 'sort'],
+			// each of these represents a public property:
+			[
+				{name: 'filter', class: PublicArrayFilter},
+				{name: 'getConverted', class: PublicArrayGetterConverter},
+				{name: 'get', class: PublicArrayGetter},
+				{name: 'getAndRemove', class: PublicArrayGetterRemover},
+				{name: 'insert', class: PublicArrayInserter},
+				{name: 'remove', class: PublicArrayRemover},
+				{name: 'replace', class: PublicArrayReplacer},
+				{name: 'sort', class: PublicArraySorter}
+			],
 			{
 				get_getterFunction: (property) => {
+					// Lazy-Loading is used to instantiate these properties:
+					if (!(this[`_${property.name}`])) { // if property not set...
+						this[`_${property.name}`] = DIFactory.getInstance(property.class);
+					}
 					return () => {
-						this[`_${property}`].data = this.data;
-						return this[`_${property}`];
+						this[`_${property.name}`].data = this.data;
+						return this[`_${property.name}`];
 					};
 				}
 			}

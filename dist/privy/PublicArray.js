@@ -17,19 +17,14 @@ var array_append_prepend_1 = require("@writetome51/array-append-prepend");
 var set_array_1 = require("@writetome51/set-array");
 var di_factory_1 = require("@writetome51/di-factory");
 var public_array_content_1 = require("@writetome51/public-array-content");
-/*********************
- These imports are commented out to help improve performance.
- They're still kept here as a record of the npm module each comes from.
-
-// import { PublicArrayRemover } from '@writetome51/public-array-remover';
-// import { PublicArrayGetter } from '@writetome51/public-array-getter';
-// import { PublicArrayInserter } from '@writetome51/public-array-inserter';
-// import { PublicArraySorter } from '@writetome51/public-array-sorter';
-// import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
-// import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
-// import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
-// import { PublicArrayFilter } from '@writetome51/public-array-filter';
- ********************/
+var public_array_filter_1 = require("@writetome51/public-array-filter");
+var public_array_getter_converter_1 = require("@writetome51/public-array-getter-converter");
+var public_array_getter_1 = require("@writetome51/public-array-getter");
+var public_array_getter_remover_1 = require("@writetome51/public-array-getter-remover");
+var public_array_inserter_1 = require("@writetome51/public-array-inserter");
+var public_array_remover_1 = require("@writetome51/public-array-remover");
+var public_array_sorter_1 = require("@writetome51/public-array-sorter");
+var public_array_replacer_1 = require("@writetome51/public-array-replacer");
 /***********************
  This class is for general array manipulation.  It's called PublicArray because it
  contains an array in a public property: 'data' .
@@ -48,6 +43,7 @@ var PublicArray = /** @class */ (function (_super) {
     __extends(PublicArray, _super);
     // Public Properties:
     // readonly  copy: PublicArray (an independent copy of this instance).
+    // Lazy-Loading is used to instantiate these properties:
     // readonly  filter: PublicArrayFilter;
     // readonly  getConverted: PublicArrayGetterConverter;
     // readonly  get: PublicArrayGetter;
@@ -56,37 +52,30 @@ var PublicArray = /** @class */ (function (_super) {
     // readonly  remove: PublicArrayRemover;
     // readonly  replace: PublicArrayReplacer;
     // readonly  sort: PublicArraySorter;
-    function PublicArray(
-    // begin injected dependencies...
-    _filter, // PublicArrayFilter,
-    _getConverted, // PublicArrayGetterConverter,
-    _get, // PublicArrayGetter,
-    _getAndRemove, // PublicArrayGetterRemover,
-    _insert, // PublicArrayInserter,
-    _remove, // PublicArrayRemover,
-    _replace, // PublicArrayReplacer,
-    _sort, // PublicArraySorter,
-    // ... end injected dependencies
-    data // the actual array, represented by inherited property this.data
+    function PublicArray(data // the actual array, represented by inherited property this.data
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
-        _this._filter = _filter;
-        _this._getConverted = _getConverted;
-        _this._get = _get;
-        _this._getAndRemove = _getAndRemove;
-        _this._insert = _insert;
-        _this._remove = _remove;
-        _this._replace = _replace;
-        _this._sort = _sort;
         _this._createGetterAndOrSetterForEach(
-        // each of these is a public property:
-        ['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
-            'remove', 'replace', 'sort'], {
+        // each of these represents a public property:
+        [
+            { name: 'filter', class: public_array_filter_1.PublicArrayFilter },
+            { name: 'getConverted', class: public_array_getter_converter_1.PublicArrayGetterConverter },
+            { name: 'get', class: public_array_getter_1.PublicArrayGetter },
+            { name: 'getAndRemove', class: public_array_getter_remover_1.PublicArrayGetterRemover },
+            { name: 'insert', class: public_array_inserter_1.PublicArrayInserter },
+            { name: 'remove', class: public_array_remover_1.PublicArrayRemover },
+            { name: 'replace', class: public_array_replacer_1.PublicArrayReplacer },
+            { name: 'sort', class: public_array_sorter_1.PublicArraySorter }
+        ], {
             get_getterFunction: function (property) {
+                // Lazy-Loading is used to instantiate these properties:
+                if (!(_this["_" + property.name])) { // if property not set...
+                    _this["_" + property.name] = di_factory_1.DIFactory.getInstance(property.class);
+                }
                 return function () {
-                    _this["_" + property].data = _this.data;
-                    return _this["_" + property];
+                    _this["_" + property.name].data = _this.data;
+                    return _this["_" + property.name];
                 };
             }
         });

@@ -33,22 +33,11 @@ var public_array_content_1 = require("@writetome51/public-array-content");
  **********************/
 var PublicArray = /** @class */ (function (_super) {
     __extends(PublicArray, _super);
-    // Public Properties:
-    // readonly  copy: PublicArray (an independent copy of this instance).
-    // Lazy-Loading is used to instantiate these properties:
-    // readonly  filter: PublicArrayFilter;
-    // readonly  getConverted: PublicArrayGetterConverter;
-    // readonly  get: PublicArrayGetter;
-    // readonly  getAndRemove: PublicArrayGetterRemover;
-    // readonly  insert: PublicArrayInserter;
-    // readonly  remove: PublicArrayRemover;
-    // readonly  replace: PublicArrayReplacer;
-    // readonly  sort: PublicArraySorter;
     function PublicArray(data // the actual array, represented by inherited property this.data
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
-        _this._dependencyClasses = [
+        var dependencyClasses = [
             { path: '@writetome51/public-array-filter', name: 'PublicArrayFilter' },
             { path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter' },
             { path: '@writetome51/public-array-getter', name: 'PublicArrayGetter' },
@@ -66,7 +55,7 @@ var PublicArray = /** @class */ (function (_super) {
                 return function () {
                     // Lazy-Loading is used to instantiate these properties:
                     if (!(_this["_" + property])) { // if property not set...
-                        var dependencyClass = _this._dependencyClasses[index];
+                        var dependencyClass = dependencyClasses[index];
                         // @ts-ignore
                         var modul = require(dependencyClass.path);
                         _this["_" + property] = di_factory_1.DIFactory.getInstance(modul[dependencyClass.name]);

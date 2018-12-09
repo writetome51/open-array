@@ -22,7 +22,18 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
 
 export class PublicArray extends PublicArrayContent {
 
-	private _dependencyClasses: { path: string, name: string }[];
+
+ // readonly  copy: PublicArray (an independent copy of this instance).
+	readonly filter; // PublicArrayFilter
+	readonly getConverted; // PublicArrayGetterConverter;
+	readonly get; // PublicArrayGetter;
+	readonly getAndRemove; // PublicArrayGetterRemover;
+	readonly insert; // PublicArrayInserter;
+	readonly remove; // PublicArrayRemover;
+	readonly replace; // PublicArrayReplacer;
+	readonly sort; // PublicArraySorter;
+
+
 	private _filter; // PublicArrayFilter
 	private _getConverted; // PublicArrayGetterConverter
 	private _get; // PublicArrayGetter
@@ -33,28 +44,13 @@ export class PublicArray extends PublicArrayContent {
 	private _sort; // PublicArraySorter
 
 
-	// Public Properties:
-
-	// readonly  copy: PublicArray (an independent copy of this instance).
-
-	// Lazy-Loading is used to instantiate these properties:
-	// readonly  filter: PublicArrayFilter;
-	// readonly  getConverted: PublicArrayGetterConverter;
-	// readonly  get: PublicArrayGetter;
-	// readonly  getAndRemove: PublicArrayGetterRemover;
-	// readonly  insert: PublicArrayInserter;
-	// readonly  remove: PublicArrayRemover;
-	// readonly  replace: PublicArrayReplacer;
-	// readonly  sort: PublicArraySorter;
-
-
 	constructor(
 		data = [] // the actual array, represented by inherited property this.data
 	) {
 
 		super(data);
 
-		this._dependencyClasses = [
+		let dependencyClasses = [
 			{path: '@writetome51/public-array-filter', name: 'PublicArrayFilter'},
 			{path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter'},
 			{path: '@writetome51/public-array-getter', name: 'PublicArrayGetter'},
@@ -74,7 +70,7 @@ export class PublicArray extends PublicArrayContent {
 					return () => {
 						// Lazy-Loading is used to instantiate these properties:
 						if (!(this[`_${property}`])) { // if property not set...
-							let dependencyClass = this._dependencyClasses[index];
+							let dependencyClass = dependencyClasses[index];
 							// @ts-ignore
 							let modul = require(dependencyClass.path);
 							this[`_${property}`] = DIFactory.getInstance(modul[dependencyClass.name]);
@@ -117,4 +113,3 @@ export class PublicArray extends PublicArrayContent {
 
 
 }
-

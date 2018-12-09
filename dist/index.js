@@ -9,7 +9,7 @@ var public_array_inserter_1 = require("@writetome51/public-array-inserter");
 var public_array_remover_1 = require("@writetome51/public-array-remover");
 var public_array_replacer_1 = require("@writetome51/public-array-replacer");
 var public_array_sorter_1 = require("@writetome51/public-array-sorter");
-var PublicArray_1 = require("./privy/PublicArray");
+var PublicArray_1 = require("./PublicArray");
 di_factory_1.DIFactory.register({
     class: PublicArray_1.PublicArray,
     dependencies: [

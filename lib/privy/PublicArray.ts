@@ -2,6 +2,10 @@ import { append, prepend } from '@writetome51/array-append-prepend';
 import { setArray } from '@writetome51/set-array';
 import { DIFactory } from '@writetome51/di-factory';
 import { PublicArrayContent } from '@writetome51/public-array-content';
+/*********************
+ These imports are commented out to help improve performance.
+ They're still kept here as a record of the npm module each comes from.
+
 // import { PublicArrayRemover } from '@writetome51/public-array-remover';
 // import { PublicArrayGetter } from '@writetome51/public-array-getter';
 // import { PublicArrayInserter } from '@writetome51/public-array-inserter';
@@ -10,28 +14,29 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
 // import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
 // import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
 // import { PublicArrayFilter } from '@writetome51/public-array-filter';
+ ********************/
 
 
-/**************
- This class is called PublicArray because an array is contained inside it,
- in a public property: 'data'
+/***********************
+ This class is for general array manipulation.  It's called PublicArray because it
+ contains an array in a public property: 'data' .
 
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
- and expressive method names.
+ and expressive method names, and a lot more of them.
 
  A few examples of usage:
 
- let arr = getPublicArray( [1,2,3,4,5,6] );
+ let arr = getPublicArray([1,2,3,4,5,6]);
  arr.remove.tail(2); // arr.data is now [1,2,3,4]
  if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
- *************/
+ **********************/
 
 
 export class PublicArray extends PublicArrayContent {
 
 
-	//Public Properties:
+	// Public Properties:
 
 	// readonly  copy: PublicArray (an independent copy of this instance).
 	// readonly  filter: PublicArrayFilter;
@@ -46,14 +51,14 @@ export class PublicArray extends PublicArrayContent {
 
 	constructor(
 		// begin injected dependencies...
-		private _filter, //: PublicArrayFilter,
-		private _getConverted, //: PublicArrayGetterConverter,
-		private _get, //: PublicArrayGetter,
-		private _getAndRemove, //: PublicArrayGetterRemover,
-		private _insert, //: PublicArrayInserter,
-		private _remove, //: PublicArrayRemover,
-		private _replace, //: PublicArrayReplacer,
-		private _sort, //: PublicArraySorter,
+		private _filter, // PublicArrayFilter,
+		private _getConverted, // PublicArrayGetterConverter,
+		private _get, // PublicArrayGetter,
+		private _getAndRemove, // PublicArrayGetterRemover,
+		private _insert, // PublicArrayInserter,
+		private _remove, // PublicArrayRemover,
+		private _replace, // PublicArrayReplacer,
+		private _sort, // PublicArraySorter,
 		// ... end injected dependencies
 
 		data = [] // the actual array, represented by inherited property this.data
@@ -77,7 +82,7 @@ export class PublicArray extends PublicArrayContent {
 	}
 
 
-	// this.copy  -- returns independent copy of this.
+	// this.copy  -- returns independent copy of 'this', not linked to 'this' in any way.
 	get copy(): PublicArray {
 		// @ts-ignore
 		return DIFactory.getInstance(PublicArray, [this.get.copy()]);
@@ -99,10 +104,11 @@ export class PublicArray extends PublicArrayContent {
 	}
 
 
-	// Use this for changing value of this.data without breaking its memory reference.
+	// Use this to change the value of this.data without breaking its memory reference.
 	set(newArray): this {
 		return this.returnThis_after(setArray(this.data, newArray));
 	}
 
 
 }
+

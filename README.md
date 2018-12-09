@@ -569,17 +569,17 @@ runMethod_and_returnThis(
 
 ```
 // changing the array content:
-arr.data = [{prop1: 'yes', prop2: 'no'}, {prop1: 'no', prop2: 'yes'}];
+arr.data = [item1, item2, item3, ...];
 
 // changing the array content without breaking its memory reference:
-arr.set( [ {prop1: 'yes', prop2: 'no'}, {prop1: 'no', prop2: 'yes'} ] );
+arr.set( [item1, item2, item3, ...] );
 ```
 
 ## Performance
 
 PublicArray has a large number of dependencies.  You should keep this in mind when optimizing  
 the performance of your app. For example, say your code only uses PublicArray's `.replace` property  
-and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you will get a slight   
+and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you will get a   
 performance boost if you just instantiate PublicArrayReplacer instead of PublicArray:
 ```
 let replace = new PublicArrayReplacer(array);

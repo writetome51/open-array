@@ -2,23 +2,39 @@ import { getPublicArray } from './index';
 import { arraysMatch } from '@writetome51/arrays-match';
 
 
+/*******************
+ let arr: any = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+ arr.splice(10, 0, [1]);
+ console.log(arr);
+ *****************/
+
 let arr = getPublicArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 // Test 1: getPublicArray() must return instance of PublicArray:
 if (arr.className && arr.className === 'PublicArray') console.log('test 1 passed');
 else console.log('test 1 FAILED');
 
-// Test 1A: the instance must contain the array passed into getPublicArray():
-if (arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9])) console.log('test 1A passed');
-else console.log('test 1A FAILED');
+/*******************
+ // Test 1A: the instance must contain the array passed into getPublicArray():
+ if (arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9])) console.log('test 1A passed');
+ else console.log('test 1A FAILED');
 
+ // Test 2: :
+ if (arr.className && arr.className === 'PublicArray') console.log('test 2 passed');
+ else console.log('test 2 FAILED');
 
-console.log(
-	arr.remove
-		.byIndexes([0, 2, 4, 6])
-		.data
-);// [2, 4, 6, 8, 9]
+ // Test 2A: the instance must contain the array passed into getPublicArray():
+ if (arraysMatch(arr.data, [1, 2, 3, 4, 5, 6, 7, 8, 9])) console.log('test 1A passed');
+ else console.log('test 1A FAILED');
+ *******************/
 
+/*********
+ console.log(
+ arr.remove
+ .byIndexes([0, 2, 4, 6])
+ .data
+ );// [2, 4, 6, 8, 9]
+ ************/
 
 /****************
 

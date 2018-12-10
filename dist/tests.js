@@ -90,7 +90,7 @@ if (arrays_match_1.arraysMatch(arr.insert.data, arr.data))
 else
     console.log('test 6A FAILED');
 // Test 6B: arr.data must remain in-sync with arr.insert.data after calling an arr.insert method:
-arr.insert.at(1, ['h']);
+arr.insert.at(1, ['h', 'j']);
 if (arrays_match_1.arraysMatch(arr.insert.data, arr.data))
     console.log('test 6B passed');
 else
@@ -111,6 +111,132 @@ if (arrays_match_1.arraysMatch(arr.remove.data, arr.data))
     console.log('test 7B passed');
 else
     console.log('test 7B FAILED');
+// Test 8: arr.replace must be instance of PublicArrayReplacer:
+if (arr.replace.className && arr.replace.className === 'PublicArrayReplacer')
+    console.log('test 8 passed');
+else
+    console.log('test 8 FAILED');
+// Test 8A: arr.replace.data must match arr.data:
+if (arrays_match_1.arraysMatch(arr.replace.data, arr.data))
+    console.log('test 8A passed');
+else
+    console.log('test 8A FAILED');
+// Test 8B: arr.data must remain in-sync with arr.replace.data after calling an arr.replace method:
+arr.replace.firstOf('j', 'J');
+if (arrays_match_1.arraysMatch(arr.replace.data, arr.data))
+    console.log('test 8B passed');
+else
+    console.log('test 8B FAILED');
+// Test 9: arr.sort must be instance of PublicArraySorter:
+if (arr.sort.className && arr.sort.className === 'PublicArraySorter')
+    console.log('test 9 passed');
+else
+    console.log('test 9 FAILED');
+// Test 9A: arr.sort.data must match arr.data:
+if (arrays_match_1.arraysMatch(arr.sort.data, arr.data))
+    console.log('test 9A passed');
+else
+    console.log('test 9A FAILED');
+// Test 9B: arr.data must remain in-sync with arr.sort.data after calling an arr.sort method:
+arr.sort.alphabetize();
+if (arrays_match_1.arraysMatch(arr.sort.data, arr.data))
+    console.log('test 9B passed');
+else
+    console.log('test 9B FAILED');
+// Test 10: make sure .copy property is copy of the arr instance:
 var copy = arr.copy;
-copy.data = ['j'];
-console.log(arr.data);
+if (copy.className && copy.className === 'PublicArray' && arrays_match_1.arraysMatch(copy.data, arr.data) &&
+    copy.filter && copy.getAndRemove)
+    console.log('test 10 passed');
+else
+    console.log('test 10 FAILED');
+// Test 10A: make sure copy.data is not linked with arr.data:
+copy.data.push('blah');
+if (arrays_match_1.arraysMatch(copy.data, arr.data))
+    console.log('test 10A FAILED');
+else
+    console.log('test 10A passed');
+// Test 11: make sure .append() works:
+arr.append(['blah', 'goo']);
+if (arr.data[arr.data.length - 1] === 'goo' && arr.data[arr.data.length - 2] === 'blah')
+    console.log('test 11 passed');
+else
+    console.log('test 11 FAILED');
+// Test 12: make sure .prepend() works:
+arr.prepend(['ccc', 'ddd']);
+if (arr.data[0] === 'ccc' && arr.data[1] === 'ddd')
+    console.log('test 12 passed');
+else
+    console.log('test 12 FAILED');
+// Test 13: make sure .forEach() lets you access the current item, its index, and entire array:
+arr.data = ['a', 'b', 'c', 'd'];
+var allData = [];
+arr.forEach(function (item, index, theArr) {
+    allData.push([item, index, theArr]);
+});
+if (arrays_match_1.arraysMatch(allData, [
+    ['a', 0, ['a', 'b', 'c', 'd']], ['b', 1, ['a', 'b', 'c', 'd']],
+    ['c', 2, ['a', 'b', 'c', 'd']], ['d', 3, ['a', 'b', 'c', 'd']]
+]))
+    console.log('test 13 passed');
+else
+    console.log('test 13 FAILED');
+// Test 13A: make sure .forEach() allows you to change the values of each item:
+arr.forEach(function (item, index, theArr) {
+    theArr[index] = index;
+});
+if (arrays_match_1.arraysMatch(arr.data, [0, 1, 2, 3]))
+    console.log('test 13A passed');
+else
+    console.log('test 13A FAILED');
+// Test 14: make sure .set() changes value of arr.data without breaking memory reference:
+var dataCopy = arr.data;
+arr.set([6, 7, 8, 9]);
+if (arrays_match_1.arraysMatch(arr.data, [6, 7, 8, 9]) && arrays_match_1.arraysMatch(arr.data, dataCopy))
+    console.log('test 14 passed');
+else
+    console.log('test 14 FAILED');
+// Test 15: check .notEmpty property:
+if (arr.notEmpty)
+    console.log('test 15 passed');
+else
+    console.log('test 15 FAILED');
+// Test 16: check .isEmpty property:
+if (arr.isEmpty)
+    console.log('test 16 FAILED');
+else
+    console.log('test 16 passed');
+// Test 17: check .length property:
+if (arr.length === 4)
+    console.log('test 17 passed');
+else
+    console.log('test 17 FAILED');
+// Test 18: make sure .length is writable:
+arr.length = 1;
+if (arrays_match_1.arraysMatch(arr.data, [6]))
+    console.log('test 18 passed');
+else
+    console.log('test 18 FAILED');
+// Test 19: make sure .asString() works:
+arr.data = [1, 2, 3, 4, 5];
+var str = arr.asString('-');
+if (str === '1-2-3-4-5')
+    console.log('test 19 passed');
+else
+    console.log('test 19 FAILED');
+// Test 20: make sure .matches() works:
+if (arr.matches([1, 2, 3, 4, 5]))
+    console.log('test 20 passed');
+else
+    console.log('test 20 FAILED');
+// Test 21: make sure .has() works:
+if (arr.has(4))
+    console.log('test 21 passed');
+else
+    console.log('test 21 FAILED');
+// Test 22: make sure .indexesThatPass() works:
+var indexes = arr.indexesThatPass(function (item) { return (item % 2 === 0); });
+if (arrays_match_1.arraysMatch(indexes, [1, 3]))
+    console.log('test 22 passed');
+else
+    console.log('test 22 FAILED');

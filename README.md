@@ -6,7 +6,7 @@ The main reason you would use PublicArray is if you hate JavaScript's built-in A
 like `.slice()`, `.splice()`, `.push()`, and `.shift()`.  PublicArray has much clearer and expressive   
 method names, and a lot more of them.  Examples:
 ```
-let arr = getPublicArray([1,2,3,4,5,6]);
+let arr = new PublicArray([1,2,3,4,5,6]);
 arr.remove.tail(2); // arr.data is now [1,2,3,4]
 arr.remove.head(1); // arr.data is now [2,3,4]
 
@@ -28,19 +28,19 @@ npm install @writetome51/public-array
 ## Loading
 ```
 // If using TypeScript:
-import { getPublicArray } from '@writetome51/public-array';
+import { PublicArray } from '@writetome51/public-array';
 // If using ES5 JavaScript:
-var getPublicArray = require('@writetome51/public-array').getPublicArray;
+var PublicArray = require('@writetome51/public-array').PublicArray;
 ```
 
 
 ## Instantiation
 ```
-getPublicArray(array = []): PublicArray
+new PublicArray(array = [])
     // Examples:
-    // let arr = getPublicArray([1,2,3,4,5]);
+    // let arr = new PublicArray([1,2,3,4,5]);
     // Or, instantiate with an empty array:
-    // let arr = getPublicArray();
+    // let arr = new PublicArray();
 ```
 
 ## Properties
@@ -579,7 +579,7 @@ arr.set( [item1, item2, item3, ...] );
 
 PublicArray has a large number of dependencies.  You should keep this in mind when optimizing  
 the performance of your app. For example, say your code only uses PublicArray's `.replace` property  
-and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you will get a   
+and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you may get a small  
 performance boost if you just instantiate PublicArrayReplacer instead of PublicArray:
 ```
 let replace = new PublicArrayReplacer(array);

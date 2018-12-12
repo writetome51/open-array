@@ -272,6 +272,9 @@ getAndRemove.byType(
 ```
 insert.at(index, values: any[]): PublicArrayInserter
     // inserts values at index.  index can be negative or positive.
+    // If positive, existing items beginning at that index will be pushed to the right to   
+    // make room.  If negative, existing items ending at that index will be pushed to the   
+    // left to make room. 
 
 insert.middle(values: any[], offset = 0): PublicArrayInserter
     // inserts values in middle of this.data .
@@ -573,6 +576,27 @@ arr.data = [item1, item2, item3, ...];
 
 // changing the array content without breaking its memory reference:
 arr.set( [item1, item2, item3, ...] );
+
+// using .append() instead of .push():
+arr.append(['goodbye']); // now the last item in arr.data is 'goodbye'
+
+// using .prepend() instead of .unshift():
+arr.prepend(['hello']); // now the first item in arr.data is 'hello' 
+
+// checking if array has a particular item:
+arr.data = ['a', 'q', 'r', 'z', 'x'];
+if (arr.has('q')) console.log('yes'); // --> 'yes'
+
+// checking if array has exact sequence of adjacent items:
+arr.data = [3,6,9,12,11,3,5,1];
+if (arr.hasAdjacent([9,12,11,3])) console.log('yes'); // --> 'yes'
+
+// removing any items that aren't numbers and putting the numbers in order:
+arr.filter.byType('number');
+arr.sort.numbersAscending();
+
+// removing and returning dirty 4-letter words:
+let dirtyWords = arr.getAndRemove.byTest((item) => isString(item) && item.length === 4);
 ```
 
 ## Performance

@@ -11,19 +11,14 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
  and expressive method names, and a lot more of them.
-
- A few examples of usage:
-
- let arr = getPublicArray([1,2,3,4,5,6]);
- arr.remove.tail(2); // arr.data is now [1,2,3,4]
- if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
  **********************/
 
 
 export class PublicArray extends PublicArrayContent {
 
 
-	// readonly  copy: PublicArray (an independent copy of this instance).
+	// These are all created with getter functions in the constructor.
+
 	readonly filter; // PublicArrayFilter
 	readonly getConverted; // PublicArrayGetterConverter;
 	readonly get; // PublicArrayGetter;
@@ -33,6 +28,8 @@ export class PublicArray extends PublicArrayContent {
 	readonly replace; // PublicArrayReplacer;
 	readonly sort; // PublicArraySorter;
 
+
+	// These are all instances gotten from dependencyClasses in the constructor.
 
 	private _filter; // PublicArrayFilter
 	private _getConverted; // PublicArrayGetterConverter
@@ -50,6 +47,8 @@ export class PublicArray extends PublicArrayContent {
 
 		super(data);
 
+		// These are not loaded at the top with import statements because we're loading them
+		// lazily in the getter functions to boost performance.
 		let dependencyClasses = [
 			{path: '@writetome51/public-array-filter', name: 'PublicArrayFilter'},
 			{path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter'},
@@ -63,12 +62,13 @@ export class PublicArray extends PublicArrayContent {
 
 		this._createGetterAndOrSetterForEach(
 			// each of these is a public property:
-			['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
-				'remove', 'replace', 'sort'],
+			['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'],
+
 			{
 				get_getterFunction: (property, index) => {
 					return () => {
-						// Lazy-Loading is used to instantiate these properties:
+
+						// Lazy-Loading is used to instantiate each property:
 						if (!(this[`_${property}`])) { // if property not set...
 							let dependencyClass = dependencyClasses[index];
 							// @ts-ignore
@@ -84,10 +84,10 @@ export class PublicArray extends PublicArrayContent {
 	}
 
 
-	// this.copy  -- returns independent copy of 'this', not linked to 'this' in any way.
-	get copy(): PublicArray {
-		// @ts-ignore
-		return DIFactory.getInstance(PublicArray, [this.get.copy()]);
+	// changes the value of this.data without breaking its memory reference.
+
+	set(newArray): void {
+		setArray(this.data, newArray);
 	}
 
 
@@ -103,12 +103,6 @@ export class PublicArray extends PublicArrayContent {
 
 	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): this {
 		return this.returnThis_after(this.data.forEach(iterationFunction));
-	}
-
-
-	// Use this to change the value of this.data without breaking its memory reference.
-	set(newArray): this {
-		return this.returnThis_after(setArray(this.data, newArray));
 	}
 
 

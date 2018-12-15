@@ -24,12 +24,6 @@ var public_array_content_1 = require("@writetome51/public-array-content");
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
  and expressive method names, and a lot more of them.
-
- A few examples of usage:
-
- let arr = getPublicArray([1,2,3,4,5,6]);
- arr.remove.tail(2); // arr.data is now [1,2,3,4]
- if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
  **********************/
 var PublicArray = /** @class */ (function (_super) {
     __extends(PublicArray, _super);
@@ -37,6 +31,8 @@ var PublicArray = /** @class */ (function (_super) {
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
+        // These are not loaded at the top with import statements because we're loading them
+        // lazily in the getter functions to boost performance.
         var dependencyClasses = [
             { path: '@writetome51/public-array-filter', name: 'PublicArrayFilter' },
             { path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter' },
@@ -49,11 +45,10 @@ var PublicArray = /** @class */ (function (_super) {
         ];
         _this._createGetterAndOrSetterForEach(
         // each of these is a public property:
-        ['filter', 'getConverted', 'get', 'getAndRemove', 'insert',
-            'remove', 'replace', 'sort'], {
+        ['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'], {
             get_getterFunction: function (property, index) {
                 return function () {
-                    // Lazy-Loading is used to instantiate these properties:
+                    // Lazy-Loading is used to instantiate each property:
                     if (!(_this["_" + property])) { // if property not set...
                         var dependencyClass = dependencyClasses[index];
                         // @ts-ignore
@@ -67,15 +62,10 @@ var PublicArray = /** @class */ (function (_super) {
         });
         return _this;
     }
-    Object.defineProperty(PublicArray.prototype, "copy", {
-        // this.copy  -- returns independent copy of 'this', not linked to 'this' in any way.
-        get: function () {
-            // @ts-ignore
-            return di_factory_1.DIFactory.getInstance(PublicArray, [this.get.copy()]);
-        },
-        enumerable: true,
-        configurable: true
-    });
+    // changes the value of this.data without breaking its memory reference.
+    PublicArray.prototype.set = function (newArray) {
+        set_array_1.setArray(this.data, newArray);
+    };
     PublicArray.prototype.append = function (values) {
         return this.returnThis_after(array_append_prepend_1.append(values, this.data));
     };
@@ -84,10 +74,6 @@ var PublicArray = /** @class */ (function (_super) {
     };
     PublicArray.prototype.forEach = function (iterationFunction) {
         return this.returnThis_after(this.data.forEach(iterationFunction));
-    };
-    // Use this to change the value of this.data without breaking its memory reference.
-    PublicArray.prototype.set = function (newArray) {
-        return this.returnThis_after(set_array_1.setArray(this.data, newArray));
     };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));

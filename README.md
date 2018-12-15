@@ -51,7 +51,7 @@ new PublicArray(array = [])
 ###### This is the array to be operated on.
 
 #### copy: PublicArray (read-only)  
-###### an independent copy of the PublicArray instance
+######  a copy of the PublicArray instance, containing an independent copy of this.data that can be manipulated separately.
 
 #### length: number (read-writable) 
 ###### length of this.data
@@ -545,7 +545,7 @@ forEach(iterationFunction): this
     // Behaves same as Array.forEach()
     // iterationFunction = function(currentValue, currentIndex?, entireArray?){...}
     
-set(newArray): this
+set(newArray): void
     // Changes value of this.data to newArray without breaking its memory reference.
     // So if there are copies of this.data, the copies will be updated as well.
 
@@ -609,9 +609,6 @@ performance boost if you just instantiate PublicArrayReplacer instead of PublicA
 let replace = new PublicArrayReplacer(array);
 replace.adjacentAt(2, ['just', 'an', 'example']);
 ```
-## Inheritance Chain
-
-PublicArray<-PublicArrayContent<-PublicArrayContainer<-BatchGetterSetter<-MethodChainable<-SelfIdentifiable
 
 
 ## License

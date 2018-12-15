@@ -8,39 +8,35 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
  The main reason you would use this class is if you hate JavaScript's built-in Array
  methods, like .slice(), .splice(), .push(), and .shift().  This class has much clearer
  and expressive method names, and a lot more of them.
-
- A few examples of usage:
-
- let arr = getPublicArray([1,2,3,4,5,6]);
- arr.remove.tail(2); // arr.data is now [1,2,3,4]
- if (arr.notEmpty) arr.prepend([10]); // arr.data is now [10,1,2,3,4]
  **********************/
 
 export declare class PublicArray extends PublicArrayContent {
 
+	readonly filter: any;
+	readonly getConverted: any;
+	readonly get: any;
+	readonly getAndRemove: any;
+	readonly insert: any;
+	readonly remove: any;
+	readonly replace: any;
+	readonly sort: any;
 
-	readonly copy: PublicArray; // (an independent copy of this instance).
-	readonly filter; // PublicArrayFilter
-	readonly getConverted; // PublicArrayGetterConverter;
-	readonly get; // PublicArrayGetter;
-	readonly getAndRemove; // PublicArrayGetterRemover;
-	readonly insert; // PublicArrayInserter;
-	readonly remove; // PublicArrayRemover;
-	readonly replace; // PublicArrayReplacer;
-	readonly sort; // PublicArraySorter;
+	private _filter;
+	private _getConverted;
+	private _get;
+	private _getAndRemove;
+	private _insert;
+	private _remove;
+	private _replace;
+	private _sort;
 
-
-	private _filter; // PublicArrayFilter
-	private _getConverted; // PublicArrayGetterConverter
-	private _get; // PublicArrayGetter;
-	private _getAndRemove; // PublicArrayGetterRemover;
-	private _insert; // PublicArrayInserter;
-	private _remove; // PublicArrayRemover;
-	private _replace; // PublicArrayReplacer;
-	private _sort; // PublicArraySorter;
+	private __dependencyClasses;
 
 
 	constructor(data?: any[]);
+
+
+	set(newArray: any[]): void;
 
 
 	append(values: any[]): this;
@@ -49,10 +45,8 @@ export declare class PublicArray extends PublicArrayContent {
 	prepend(values: any[]): this;
 
 
-	forEach(
-		iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any
-	): this;
+	forEach(iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any): this;
 
 
-	set(newArray: any[]): this;
+	private __getInstancePropertyGetter;
 }

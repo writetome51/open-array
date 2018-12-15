@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@writetome51/public-array-remover": "~1.0.1",
-    "@writetome51/public-array-content": "~1.0.4",
+    "@writetome51/public-array-content": "~1.2.0",
     "@writetome51/public-array-getter": "~1.0.1",
     "@writetome51/public-array-inserter": "~2.0.0",
     "@writetome51/public-array-sorter": "~1.0.0",
@@ -41,6 +41,6 @@
     "@writetome51/public-array-filter": "~1.0.5",
     "@writetome51/array-append-prepend": "~1.0.3",
     "@writetome51/di-factory": "~1.0.0",
-    "@writetome51/set-array": "~1.0.0"
+    "@writetome51/set-array": "~1.0.1"
   }
 }

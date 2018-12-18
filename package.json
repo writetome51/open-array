@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/public-array",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A TypeScript/JavaScript class for general array manipulation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

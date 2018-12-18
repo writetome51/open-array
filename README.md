@@ -578,10 +578,10 @@ arr.data = [item1, item2, item3, ...];
 arr.set( [item1, item2, item3, ...] );
 
 // using .append() instead of .push():
-arr.append(['goodbye']); // now the last item in arr.data is 'goodbye'
+arr.append(['goodbye']); // now last item in arr.data is 'goodbye'
 
 // using .prepend() instead of .unshift():
-arr.prepend(['hello']); // now the first item in arr.data is 'hello' 
+arr.prepend(['hello']); // now first item in arr.data is 'hello' 
 
 // checking if array has a particular item:
 arr.data = ['a', 'q', 'r', 'z', 'x'];
@@ -603,12 +603,17 @@ let dirtyWords = arr.getAndRemove.byTest((item) => isString(item) && item.length
 
 PublicArray has a large number of dependencies.  You should keep this in mind when optimizing  
 the performance of your app. For example, say your code only uses PublicArray's `.replace` property  
-and nothing else.  Since `.replace` is an instance of PublicArrayReplacer, you may get a small  
+and nothing else.  Since `.replace` is an instance of [PublicArrayReplacer](https://github.com/writetome51/public-array-replacer#publicarrayreplacer), you may get a small  
 performance boost if you just instantiate PublicArrayReplacer instead of PublicArray:
 ```
 let replace = new PublicArrayReplacer(array);
 replace.adjacentAt(2, ['just', 'an', 'example']);
 ```
+
+## Inheritance Chain
+
+PublicArray<--[PublicArrayContent](https://github.com/writetome51/public-array-content#publicarraycontent)<--[PublicArrayContainer](https://github.com/writetome51/public-array-container#publicarraycontainer)<--[BaseClass](https://github.com/writetome51/typescript-base-class#baseclass)
+
 
 
 ## License

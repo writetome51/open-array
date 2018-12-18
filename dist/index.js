@@ -67,13 +67,13 @@ var PublicArray = /** @class */ (function (_super) {
         set_array_1.setArray(this.data, newArray);
     };
     PublicArray.prototype.append = function (values) {
-        return this.returnThis_after(array_append_prepend_1.append(values, this.data));
+        return this._returnThis_after(array_append_prepend_1.append(values, this.data));
     };
     PublicArray.prototype.prepend = function (values) {
-        return this.returnThis_after(array_append_prepend_1.prepend(values, this.data));
+        return this._returnThis_after(array_append_prepend_1.prepend(values, this.data));
     };
     PublicArray.prototype.forEach = function (iterationFunction) {
-        return this.returnThis_after(this.data.forEach(iterationFunction));
+        return this._returnThis_after(this.data.forEach(iterationFunction));
     };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));

@@ -92,17 +92,17 @@ export class PublicArray extends PublicArrayContent {
 
 
 	append(values: any[]): this {
-		return this.returnThis_after(append(values, this.data));
+		return this._returnThis_after(append(values, this.data));
 	}
 
 
 	prepend(values: any[]): this {
-		return this.returnThis_after(prepend(values, this.data));
+		return this._returnThis_after(prepend(values, this.data));
 	}
 
 
 	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): this {
-		return this.returnThis_after(this.data.forEach(iterationFunction));
+		return this._returnThis_after(this.data.forEach(iterationFunction));
 	}
 
 

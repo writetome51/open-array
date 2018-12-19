@@ -67,6 +67,7 @@ new PublicArray(array = [])
 <details>
 <summary>view properties</summary>
 
+---
 Helpful tidbit:  These properties all contain their own `.data` property, which always matches `this.data`
 
 #### filter: [PublicArrayFilter](https://github.com/writetome51/public-array-filter#publicarrayfilter)  (read-only)

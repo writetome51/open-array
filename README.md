@@ -109,8 +109,12 @@ get.between(numItemsToIgnoreAtEachEnd): any[]
     // Returns middle of this.data, between numItemsToIgnoreAtEachEnd
        
 get.adjacentAt(startingIndex, numItemsToGet): any[]
-    // Returns adjacent items.  startingIndex can be negative or positive.
-       
+    // Returns adjacent items.  startingIndex can be negative or positive.	
+
+// For all the functions below, the parameter 'value' cannot be object.
+// 'object' does not include Arrays.  Arrays are OK, as long as they don't 
+// contain objects.
+
 get.adjacentToValue(info: IAdjacentToValueInfo): any[]
     /**************
     Returns adjacent items including, or near, a particular value.
@@ -126,9 +130,8 @@ get.adjacentToValue(info: IAdjacentToValueInfo): any[]
         // this.data is [1,2,3,4,5,6,7,8,9,10]
         let numbers = this.get.adjacentToValue({value:5, offset: -2, howMany:3});
         // numbers is now [3,4,5]
-    ***************/	
+    ***************/
 
-// For all the functions below, the parameter 'value' cannot be object.
 
 get.allAfterFirst(value): any[]
     // returns all items after the first instance of value.
@@ -210,6 +213,10 @@ getAndRemove.between(numItemsToKeepAtEachEnd): any[]
 getAndRemove.adjacentAt(startingIndex, numItemsToRemove): any[]
     // removes and returns adjacent items.  startingIndex can be negative or positive.
 
+// For all the functions below, the parameter 'value' cannot be object.
+// 'object' does not include Arrays.  Arrays are OK, as long as they don't 
+// contain objects.
+
 getAndRemove.adjacentToValue(info: IAdjacentToValueInfo): any[]
     /********
     Removes and returns adjacent items including, or near, a particular value.
@@ -226,8 +233,7 @@ getAndRemove.adjacentToValue(info: IAdjacentToValueInfo): any[]
     	 let numbers = this.getAndRemove.adjacentToValue({value:5, offset: 0, howMany:4});
     	 // numbers is now [5,6,7,8].  this.data is now [1,2,3,4,9,10]
     *********/
-
-// For all the functions below, the parameter 'value' cannot be object.
+    
     
 getAndRemove.allAfterFirst(value): any[]
     // removes and returns all items after first instance of value
@@ -300,6 +306,24 @@ remove.byIndexes(indexes): PublicArrayRemover
 remove.adjacentAt(startingIndex, numItemsToRemove): PublicArrayRemover
    // Removes adjacent items.  startingIndex can be negative or positive.  
 
+remove.head(numItemsToRemove): PublicArrayRemover
+    // Removes numItemsToRemove from beginning of this.data .
+
+remove.tail(numItemsToRemove): PublicArrayRemover
+    // Removes numItemsToRemove from end of this.data .
+    
+remove.between(numItemsToKeepAtEachEnd): PublicArrayRemover
+    // Removes everything between numItemsToKeepAtEachEnd.
+    // i.e., if numItemsToKeepAtEachEnd = 2, then only the first 2 items and last 2 items will remain.
+    
+/************
+ For all the functions below:
+     Any parameter called 'value' cannot be an object.
+     Any parameter called 'values' cannot contain an object.
+     'object' does not include Arrays.  Arrays are OK, as long as they don't 
+     contain objects.
+************/
+
 remove.adjacentToValue(info: IAdjacentToValueInfo): PublicArrayRemover
     /************
     Removes adjacent items including, or near, a particular value.
@@ -316,22 +340,7 @@ remove.adjacentToValue(info: IAdjacentToValueInfo): PublicArrayRemover
         arr.remove.adjacentToValue({value:5, offset: 1, howMany:2});
         // arr.data is now [1,2,3,4,5,8,9,10]
     *************/
-
-remove.head(numItemsToRemove): PublicArrayRemover
-    // Removes numItemsToRemove from beginning of this.data .
-
-remove.tail(numItemsToRemove): PublicArrayRemover
-    // Removes numItemsToRemove from end of this.data .
     
-remove.between(numItemsToKeepAtEachEnd): PublicArrayRemover
-    // Removes everything between numItemsToKeepAtEachEnd.
-    // i.e., if numItemsToKeepAtEachEnd = 2, then only the first 2 items and last 2 items will remain.
-    
-/************
- For all the functions below:
-     Any parameter called 'value' cannot be an object.
-     Any parameter called 'values' cannot contain an object.
-************/
 
 remove.firstOf(value): PublicArrayRemover
     // Removes first instance of value. 
@@ -382,7 +391,20 @@ replace.adjacentAt(startingIndex, newValues: any[]): PublicArrayReplacer
     // Replaces adjacent items beginning at startingIndex with newValues.
     // Number of adjacent items that are replaced is same as number of items in newValues.
     // startingIndex can be negative or positive.
+
+replace.between(numItemsToKeepAtEachEnd, newValues: any[]): PublicArrayReplacer
+    // Replaces everything between numItemsToKeepAtEachEnd with newValues.
+    // Example: if this.data is [1,2,3,4,5,6,7] , and you call .between(2, [9,10])
+    // this.data will be [1,2,9,10,6,7] .  It preserves the first 2 items and the last 2.
     
+/************
+ For all the functions below:
+     Any parameter called 'value' cannot be an object.
+     Any parameter called 'values' cannot contain an object.
+     'object' does not include Arrays.  Arrays are OK, as long as they don't 
+     contain objects.
+************/
+
 replace.adjacentToValue(info: IAdjacentToValueInfo, newValues: any[]): PublicArrayReplacer
     /**********
     Replaces adjacent items including, or near a particular value, with newValues.
@@ -400,17 +422,6 @@ replace.adjacentToValue(info: IAdjacentToValueInfo, newValues: any[]): PublicArr
 	//  this.adjacentToValue({value: 5, offset: -1, howMany: 2},  newValues);
 	//  this.data is now [1,2,3,20,30,40,6,7,8]
     **********/
-
-replace.between(numItemsToKeepAtEachEnd, newValues: any[]): PublicArrayReplacer
-    // Replaces everything between numItemsToKeepAtEachEnd with newValues.
-    // Example: if this.data is [1,2,3,4,5,6,7] , and you call .between(2, [9,10])
-    // this.data will be [1,2,9,10,6,7] .  It preserves the first 2 items and the last 2.
-    
-/************
- For all the functions below:
-     Any parameter called 'value' cannot be an object.
-     Any parameter called 'values' cannot contain an object.
-************/
     
 replace.firstOf(value, newValue): PublicArrayReplacer
     // Replaces first instance of value with newValue.
@@ -486,6 +497,8 @@ asString(glue = ', '): string
  For all the functions below:
      Any parameter called 'value' cannot be an object.
      Any parameter called 'values' cannot contain an object.
+     'object' does not include Arrays.  Arrays are OK, as long as they don't 
+     contain objects.
 ************/
 	
 has(value): boolean
@@ -549,20 +562,42 @@ set(newArray): void
     // Changes value of this.data to newArray without breaking its memory reference.
     // So if there are copies of this.data, the copies will be updated as well.
 
-protected  _createGetterAndOrSetterForEach(
+protected   _createGetterAndOrSetterForEach(
 		propertyNames: string[],
-		configuration: GetterSetterConfiguration
-	   ) : void 
+		configuration: IGetterSetterConfiguration
+	   ) : void
+    /*********************
+    Use this method when you have a bunch of properties that need getter and/or 
+    setter functions that all do the same thing. You pass in an array of string 
+    names of those properties, and the method attaches the same getter and/or 
+    setter function to each property.
+    IGetterSetterConfiguration is this object:
+    {
+        get_setterFunction?: (
+             propertyName: string, index?: number, propertyNames?: string[]
+        ) => Function,
+	    // get_setterFunction takes the property name as first argument and 
+	    // returns the setter function.  The setter function must take one 
+	    // parameter and return void.
+	    
+        get_getterFunction?: (
+             propertyName: string, index?: number, propertyNames?: string[]
+        ) => Function
+	    // get_getterFunction takes the property name as first argument and 
+	    // returns the getter function.  The getter function must return something.
+    }
+    *********************/ 
 	   
-returnThis_after(voidExpression: any) : this
-    // Executes voidExpression and returns this.
+	   
+protected   _returnThis_after(voidExpression: any) : this
+    // voidExpression is executed, then function returns this.
     // Even if voidExpression returns something, the returned data isn't used.
 
-runMethod_and_returnThis(
+protected   _runMethod_and_returnThis(
     callingObject, 
     method: Function, 
     methodArgs: any[], 
-    additionalAction?
+    additionalAction?: Function // takes the result returned by method as an argument.
 ) : this
 ```
 </details>

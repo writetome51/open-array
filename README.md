@@ -64,6 +64,8 @@ new PublicArray(array = [])
 #### className: string (read-only)
 
 ## Properties with methods
+<details>
+<summary>view properties</summary>
 
 Helpful tidbit:  These properties all contain their own `.data` property, which always matches `this.data`
 
@@ -481,6 +483,7 @@ sort.shuffle(): PublicArraySorter;
 ```
 </details>
 
+</details>
 
 </details>
 

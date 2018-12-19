@@ -30,8 +30,6 @@ export declare class PublicArray extends PublicArrayContent {
 	private _replace;
 	private _sort;
 
-	private __dependencyClasses;
-
 
 	constructor(data?: any[]);
 
@@ -45,8 +43,8 @@ export declare class PublicArray extends PublicArrayContent {
 	prepend(values: any[]): this;
 
 
-	forEach(iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any): this;
+	forEach(
+		iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any
+	): this;
 
-
-	private __getInstancePropertyGetter;
 }

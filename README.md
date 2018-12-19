@@ -67,7 +67,8 @@ new PublicArray(array = [])
 
 Helpful tidbit:  These properties all contain their own `.data` property, which always matches `this.data`
 
-#### filter: PublicArrayFilter (read-only)
+#### filter: [PublicArrayFilter](https://github.com/writetome51/public-array-filter#publicarrayfilter)
+ (read-only)
 ###### Its methods narrow down the content of this.data and return the PublicArrayFilter instance:
 <details>
 <summary>view methods</summary>
@@ -84,7 +85,8 @@ filter.byType(
 </details>
 
 
-#### get: PublicArrayGetter (read-only)
+#### get: [PublicArrayGetter](https://github.com/writetome51/public-array-getter#publicarraygetter) 
+(read-only)
 ###### Its methods return items copied from this.data .  None of them modify this.data .
 <details>
 <summary>view methods</summary>
@@ -569,13 +571,18 @@ runMethod_and_returnThis(
 
 
 ## Usage Examples
+<details>
+<summary>view examples</summary>
 
 ```
 // changing the array content:
-arr.data = [item1, item2, item3, ...];
+arr.data = [10,20,30,40];
 
 // changing the array content without breaking its memory reference:
-arr.set( [item1, item2, item3, ...] );
+arr.set( [10,20,30,40] );
+
+// getting the array contents as a string:
+let str = arr.asString('-');  // str === '10-20-30-40'
 
 // using .append() instead of .push():
 arr.append(['goodbye']); // now last item in arr.data is 'goodbye'
@@ -597,7 +604,15 @@ arr.sort.numbersAscending();
 
 // removing and returning dirty 4-letter words:
 let dirtyWords = arr.getAndRemove.byTest((item) => isString(item) && item.length === 4);
+
+// inserting a new item just before the last item and returning the modified Array:
+arr.insert.at(-2, [newItem]);
+let modifiedArray = arr.data;
+
+// You could shorten the previous two lines into this:
+let modifiedArray = arr.insert.at(-2, [newItem]).data;
 ```
+</details>
 
 ## Performance
 

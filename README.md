@@ -67,8 +67,7 @@ new PublicArray(array = [])
 
 Helpful tidbit:  These properties all contain their own `.data` property, which always matches `this.data`
 
-#### filter: [PublicArrayFilter](https://github.com/writetome51/public-array-filter#publicarrayfilter)
- (read-only)
+#### filter: [PublicArrayFilter](https://github.com/writetome51/public-array-filter#publicarrayfilter)  (read-only)
 ###### Its methods narrow down the content of this.data and return the PublicArrayFilter instance:
 <details>
 <summary>view methods</summary>
@@ -85,8 +84,7 @@ filter.byType(
 </details>
 
 
-#### get: [PublicArrayGetter](https://github.com/writetome51/public-array-getter#publicarraygetter) 
-(read-only)
+#### get: [PublicArrayGetter](https://github.com/writetome51/public-array-getter#publicarraygetter)  (read-only)
 ###### Its methods return items copied from this.data .  None of them modify this.data .
 <details>
 <summary>view methods</summary>
@@ -171,7 +169,7 @@ get.byType(
 </details>
 
 
-#### getConverted: PublicArrayGetterConverter (read-only)
+#### getConverted: [PublicArrayGetterConverter](https://github.com/writetome51/public-array-getter-converter#publicarraygetterconverter) (read-only)
 ###### Has the Array methods .map()  and  .reduce() , but renamed to  .each()  and  .toOne() , respectively.  None of them modify this.data .
 <details>
 <summary>view methods</summary>
@@ -188,7 +186,7 @@ getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
 </details>
 
  
-#### getAndRemove: PublicArrayGetterRemover (read-only)
+#### getAndRemove: [PublicArrayGetterRemover](https://github.com/writetome51/public-array-getter-remover#publicarraygetterremover) (read-only)
 ######  Its methods both remove and return items from this.data:
 <details>
 <summary>view methods</summary>
@@ -266,7 +264,7 @@ getAndRemove.byType(
 </details>
 
  
-#### insert: PublicArrayInserter (read-only)
+#### insert: [PublicArrayInserter](https://github.com/writetome51/public-array-inserter#publicarrayinserter) (read-only)
 ######  Has methods that increase the length of this.data and return the PublicArrayInserter instance:
 <details>
 <summary>view methods</summary>
@@ -287,7 +285,7 @@ insert.middle(values: any[], offset = 0): PublicArrayInserter
 </details>
 
 
-#### remove: PublicArrayRemover (read-only)
+#### remove: [PublicArrayRemover](https://github.com/writetome51/public-array-remover#publicarrayremover) (read-only)
 ###### Has methods that all remove items from this.data and return the PublicArrayRemover instance:
 <details>
 <summary>view methods</summary>
@@ -371,7 +369,7 @@ remove.byType(
 </details>
 
  
-#### replace: PublicArrayReplacer (read-only)
+#### replace: [PublicArrayReplacer](https://github.com/writetome51/public-array-replacer#publicarrayreplacer) (read-only)
 ###### Its methods all replace items in this.data and return the PublicArrayReplacer instance:
 <details>
 <summary>view methods</summary>
@@ -450,7 +448,7 @@ replace.allWithOne(values: any[], newValue): PublicArrayReplacer
 </details>
 
  
-#### sort: PublicArraySorter (read-only)
+#### sort: [PublicArraySorter](https://github.com/writetome51/public-array-sorter#publicarraysorter) (read-only)
 ###### Its methods change the order of items in this.data and return the PublicArraySorter instance:
 <details>
 <summary>view methods</summary>
@@ -602,7 +600,7 @@ if (arr.hasAdjacent([9,12,11,3])) console.log('yes'); // --> 'yes'
 arr.filter.byType('number');
 arr.sort.numbersAscending();
 
-// removing and returning dirty 4-letter words:
+// removing and returning 4-letter words:
 let dirtyWords = arr.getAndRemove.byTest((item) => isString(item) && item.length === 4);
 
 // inserting a new item just before the last item and returning the modified Array:

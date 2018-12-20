@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/public-array",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A TypeScript/JavaScript class for general array manipulation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,7 +17,14 @@
     "general",
     "manipulation",
     "typescript",
-    "class"
+    "class",
+    "filter",
+    "sort",
+    "get",
+    "remove",
+    "replace",
+    "insert",
+    "convert"
   ],
   "author": "Steve Thompson",
   "license": "MIT",

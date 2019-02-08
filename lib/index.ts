@@ -1,6 +1,6 @@
 import { append, prepend } from '@writetome51/array-append-prepend';
+import { moveByIndex } from '@writetome51/array-move-by-index';
 import { setArray } from '@writetome51/set-array';
-import { DIFactory } from '@writetome51/di-factory';
 import { PublicArrayContent } from '@writetome51/public-array-content';
 
 
@@ -73,7 +73,7 @@ export class PublicArray extends PublicArrayContent {
 							let dependencyClass = dependencyClasses[index];
 							// @ts-ignore
 							let modul = require(dependencyClass.path);
-							this[`_${property}`] = DIFactory.getInstance(modul[dependencyClass.name]);
+							this[`_${property}`] = new modul[dependencyClass.name];
 						}
 						this[`_${property}`].data = this.data;
 						return this[`_${property}`];
@@ -101,8 +101,13 @@ export class PublicArray extends PublicArrayContent {
 	}
 
 
-	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): this {
-		return this._returnThis_after(this.data.forEach(iterationFunction));
+	moveByIndex(currentIndex, newIndex): this {
+		return this._returnThis_after(moveByIndex(currentIndex, newIndex, this.data));
+	}
+
+
+	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): void {
+		this.data.forEach(iterationFunction);
 	}
 
 

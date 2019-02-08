@@ -240,3 +240,10 @@ if (arrays_match_1.arraysMatch(indexes, [1, 3]))
     console.log('test 22 passed');
 else
     console.log('test 22 FAILED');
+// Test 23: make sure .moveByIndex() works:
+// arr.data is [1,2,3,4,5]
+arr.moveByIndex(-1, 1);
+if (arrays_match_1.arraysMatch(arr.data, [1, 5, 2, 3, 4]))
+    console.log('test 23 passed');
+else
+    console.log('test 23 FAILED');

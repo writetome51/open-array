@@ -14,8 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var array_append_prepend_1 = require("@writetome51/array-append-prepend");
+var array_move_by_index_1 = require("@writetome51/array-move-by-index");
 var set_array_1 = require("@writetome51/set-array");
-var di_factory_1 = require("@writetome51/di-factory");
 var public_array_content_1 = require("@writetome51/public-array-content");
 /***********************
  This class is for general array manipulation.  It's called PublicArray because it
@@ -53,7 +53,7 @@ var PublicArray = /** @class */ (function (_super) {
                         var dependencyClass = dependencyClasses[index];
                         // @ts-ignore
                         var modul = require(dependencyClass.path);
-                        _this["_" + property] = di_factory_1.DIFactory.getInstance(modul[dependencyClass.name]);
+                        _this["_" + property] = new modul[dependencyClass.name];
                     }
                     _this["_" + property].data = _this.data;
                     return _this["_" + property];
@@ -72,8 +72,11 @@ var PublicArray = /** @class */ (function (_super) {
     PublicArray.prototype.prepend = function (values) {
         return this._returnThis_after(array_append_prepend_1.prepend(values, this.data));
     };
+    PublicArray.prototype.moveByIndex = function (currentIndex, newIndex) {
+        return this._returnThis_after(array_move_by_index_1.moveByIndex(currentIndex, newIndex, this.data));
+    };
     PublicArray.prototype.forEach = function (iterationFunction) {
-        return this._returnThis_after(this.data.forEach(iterationFunction));
+        this.data.forEach(iterationFunction);
     };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));

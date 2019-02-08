@@ -43,8 +43,11 @@ export declare class PublicArray extends PublicArrayContent {
 	prepend(values: any[]): this;
 
 
+	moveByIndex(currentIndex: number, newIndex: number): this;
+
+
 	forEach(
 		iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any
-	): this;
+	): void;
 
 }

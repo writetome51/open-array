@@ -211,3 +211,9 @@ let indexes = arr.indexesThatPass((item) => (item % 2 === 0));
 if (arraysMatch(indexes, [1, 3])) console.log('test 22 passed');
 else console.log('test 22 FAILED');
 
+
+// Test 23: make sure .moveByIndex() works:
+// arr.data is [1,2,3,4,5]
+arr.moveByIndex(-1, 1);
+if (arraysMatch(arr.data, [1, 5, 2, 3, 4])) console.log('test 23 passed');
+else console.log('test 23 FAILED');

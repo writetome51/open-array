@@ -48,10 +48,10 @@ new PublicArray(array = [])
 <summary>view properties</summary>
 
 #### data: any[] (read-writable)  
-###### This is the array to be operated on.
+&nbsp;&nbsp;&nbsp;&nbsp;<small>This is the array to be operated on.</small>
 
 #### copy: PublicArray (read-only)  
-######  a copy of the PublicArray instance, containing an independent copy of this.data that can be manipulated separately.
+&nbsp;&nbsp;&nbsp;&nbsp;<small>a copy of the PublicArray instance, containing an independent copy of this.data that can be manipulated separately.</small>
 
 #### length: number (read-writable) 
 ###### length of this.data
@@ -558,7 +558,11 @@ append(values: any[]): this
 prepend(values: any[]): this
     // attaches values to beginning of this.data.
 
-forEach(iterationFunction): this
+moveByIndex(currentIndex, newIndex): this
+    // moves an item, identified by currentIndex, to newIndex.
+    // Both currentIndex and newIndex can be negative or positive.
+
+forEach(iterationFunction): void
     // Behaves same as Array.forEach()
     // iterationFunction = function(currentValue, currentIndex?, entireArray?){...}
     

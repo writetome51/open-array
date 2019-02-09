@@ -47,17 +47,18 @@ new PublicArray(array = [])
 <details>
 <summary>view properties</summary>
 
-#### data: any[] (read-writable)  
+#### data: any[]
 &nbsp;&nbsp;&nbsp;&nbsp;<small>This is the array to be operated on.</small>
 
-#### copy: PublicArray (read-only)  
-&nbsp;&nbsp;&nbsp;&nbsp;<small>a copy of the PublicArray instance, containing an independent copy of this.data that can be manipulated separately.</small>
+#### length: number
+&nbsp;&nbsp;&nbsp;&nbsp;<small>length of this.data</small>
 
-#### length: number (read-writable) 
-###### length of this.data
+#### copy: PublicArray (read-only)  
+&nbsp;&nbsp;&nbsp;&nbsp;<small>a copy of the PublicArray instance, containing an independent copy of 
+this.data that can be manipulated separately.</small>
 
 #### isEmpty: boolean (read-only) 
-###### true if this.data is empty
+&nbsp;&nbsp;&nbsp;&nbsp;<small>true if this.data is empty</small>
 
 #### notEmpty: boolean (read-only)
 

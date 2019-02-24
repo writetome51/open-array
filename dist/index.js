@@ -53,7 +53,7 @@ var PublicArray = /** @class */ (function (_super) {
                         var dependencyClass = dependencyClasses[index];
                         // @ts-ignore
                         var modul = require(dependencyClass.path);
-                        _this["_" + property] = new modul[dependencyClass.name];
+                        _this["_" + property] = new modul[dependencyClass.name]();
                     }
                     _this["_" + property].data = _this.data;
                     return _this["_" + property];

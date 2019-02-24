@@ -73,7 +73,7 @@ export class PublicArray extends PublicArrayContent {
 							let dependencyClass = dependencyClasses[index];
 							// @ts-ignore
 							let modul = require(dependencyClass.path);
-							this[`_${property}`] = new modul[dependencyClass.name];
+							this[`_${property}`] = new modul[dependencyClass.name]();
 						}
 						this[`_${property}`].data = this.data;
 						return this[`_${property}`];

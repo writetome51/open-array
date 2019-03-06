@@ -17,30 +17,9 @@ To actually see or get the array itself, you must access PublicArray's `.data` p
 
 `console.log(arr.data); // logs '[10,11,2,3,4,100,200,300]' `
 
-## Installation
-
-You must have npm installed first.  Then, in the command line:
-
-```bash
-npm install @writetome51/public-array
+## Constructor
 ```
-
-## Loading
-```
-// If using TypeScript:
-import { PublicArray } from '@writetome51/public-array';
-// If using ES5 JavaScript:
-var PublicArray = require('@writetome51/public-array').PublicArray;
-```
-
-
-## Instantiation
-```
-new PublicArray(array = [])
-    // Examples:
-    // let arr = new PublicArray([1,2,3,4,5]);
-    // Or, instantiate with an empty array:
-    // let arr = new PublicArray();
+constructor(data? = [])  // 'data' becomes the array the class manipulates.
 ```
 
 ## Properties
@@ -525,9 +504,9 @@ startsWith(values: any[]): boolean
 endsWith(values: any[]): boolean
     // returns true if this.data ends with exact sequence of values.
 
-matches(array): boolean
-    // returns true if this.data matches passed array exactly.
-    // will return false if this.data or passed array contains object.
+matches(values: any[]): boolean
+    // returns true if this.data matches values exactly.
+    // will return false if values contains object.
 
 // For the next 3 methods:
 // testFunction is a callback with same signature as callback passed to
@@ -570,7 +549,10 @@ forEach(iterationFunction): void
 set(newArray): void
     // Changes value of this.data to newArray without breaking its memory reference.
     // So if there are copies of this.data, the copies will be updated as well.
-
+``` 
+The methods below are not important to know about in order to use this  
+class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .
+``` 
 protected   _createGetterAndOrSetterForEach(
 		propertyNames: string[],
 		configuration: IGetterSetterConfiguration
@@ -671,7 +653,21 @@ replace.adjacentAt(2, ['just', 'an', 'example']);
 
 PublicArray<--[PublicArrayContent](https://github.com/writetome51/public-array-content#publicarraycontent)<--[PublicArrayContainer](https://github.com/writetome51/public-array-container#publicarraycontainer)<--[BaseClass](https://github.com/writetome51/typescript-base-class#baseclass)
 
+## Installation
 
+You must have npm installed first.  Then, in the command line:
+
+```bash
+npm install @writetome51/public-array
+```
+
+## Loading
+```
+// If using TypeScript:
+import { PublicArray } from '@writetome51/public-array';
+// If using ES5 JavaScript:
+var PublicArray = require('@writetome51/public-array').PublicArray;
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -2,6 +2,7 @@ import { append, prepend } from '@writetome51/array-append-prepend';
 import { moveByIndex } from '@writetome51/array-move-by-index';
 import { setArray } from '@writetome51/set-array';
 import { PublicArrayContent } from '@writetome51/public-array-content';
+import * as dependencyClassLoader from './privy/dependencyClassLoader';
 
 
 /***********************
@@ -47,19 +48,6 @@ export class PublicArray extends PublicArrayContent {
 
 		super(data);
 
-		// These are not loaded at the top with import statements because we're loading them
-		// lazily in the getter functions to boost performance.
-		let dependencyClasses = [
-			{path: '@writetome51/public-array-filter', name: 'PublicArrayFilter'},
-			{path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter'},
-			{path: '@writetome51/public-array-getter', name: 'PublicArrayGetter'},
-			{path: '@writetome51/public-array-getter-remover', name: 'PublicArrayGetterRemover'},
-			{path: '@writetome51/public-array-inserter', name: 'PublicArrayInserter'},
-			{path: '@writetome51/public-array-remover', name: 'PublicArrayRemover'},
-			{path: '@writetome51/public-array-replacer', name: 'PublicArrayReplacer'},
-			{path: '@writetome51/public-array-sorter', name: 'PublicArraySorter'}
-		];
-
 		this._createGetterAndOrSetterForEach(
 			// each of these is a public property:
 			['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'],
@@ -70,10 +58,9 @@ export class PublicArray extends PublicArrayContent {
 
 						// Lazy-Loading is used to instantiate each property:
 						if (!(this[`_${property}`])) { // if property not set...
-							let dependencyClass = dependencyClasses[index];
-							// @ts-ignore
-							let modul = require(dependencyClass.path);
-							this[`_${property}`] = new modul[dependencyClass.name]();
+							let className = dependencyClassLoader.__dependencyClasses[index];
+							let dependencyClass = dependencyClassLoader[`__get${className}`]();
+							this[`_${property}`] = new dependencyClass();
 						}
 						this[`_${property}`].data = this.data;
 						return this[`_${property}`];

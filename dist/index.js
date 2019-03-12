@@ -17,6 +17,7 @@ var array_append_prepend_1 = require("@writetome51/array-append-prepend");
 var array_move_by_index_1 = require("@writetome51/array-move-by-index");
 var set_array_1 = require("@writetome51/set-array");
 var public_array_content_1 = require("@writetome51/public-array-content");
+var dependencyClassLoader = require("./privy/dependencyClassLoader");
 /***********************
  This class is for general array manipulation.  It's called PublicArray because it
  contains an array in a public property: 'data' .
@@ -31,18 +32,6 @@ var PublicArray = /** @class */ (function (_super) {
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
-        // These are not loaded at the top with import statements because we're loading them
-        // lazily in the getter functions to boost performance.
-        var dependencyClasses = [
-            { path: '@writetome51/public-array-filter', name: 'PublicArrayFilter' },
-            { path: '@writetome51/public-array-getter-converter', name: 'PublicArrayGetterConverter' },
-            { path: '@writetome51/public-array-getter', name: 'PublicArrayGetter' },
-            { path: '@writetome51/public-array-getter-remover', name: 'PublicArrayGetterRemover' },
-            { path: '@writetome51/public-array-inserter', name: 'PublicArrayInserter' },
-            { path: '@writetome51/public-array-remover', name: 'PublicArrayRemover' },
-            { path: '@writetome51/public-array-replacer', name: 'PublicArrayReplacer' },
-            { path: '@writetome51/public-array-sorter', name: 'PublicArraySorter' }
-        ];
         _this._createGetterAndOrSetterForEach(
         // each of these is a public property:
         ['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'], {
@@ -50,10 +39,9 @@ var PublicArray = /** @class */ (function (_super) {
                 return function () {
                     // Lazy-Loading is used to instantiate each property:
                     if (!(_this["_" + property])) { // if property not set...
-                        var dependencyClass = dependencyClasses[index];
-                        // @ts-ignore
-                        var modul = require(dependencyClass.path);
-                        _this["_" + property] = new modul[dependencyClass.name]();
+                        var className = dependencyClassLoader.__dependencyClasses[index];
+                        var dependencyClass = dependencyClassLoader["__get" + className]();
+                        _this["_" + property] = new dependencyClass();
                     }
                     _this["_" + property].data = _this.data;
                     return _this["_" + property];

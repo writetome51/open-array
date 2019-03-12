@@ -21,14 +21,14 @@ export declare class PublicArray extends PublicArrayContent {
 	readonly replace: any;
 	readonly sort: any;
 
-	private _filter;
-	private _getConverted;
-	private _get;
-	private _getAndRemove;
-	private _insert;
-	private _remove;
-	private _replace;
-	private _sort;
+	private __filter;
+	private __getConverted;
+	private __get;
+	private __getAndRemove;
+	private __insert;
+	private __remove;
+	private __replace;
+	private __sort;
 
 
 	constructor(data?: any[]);

@@ -32,14 +32,14 @@ export class PublicArray extends PublicArrayContent {
 
 	// These are all instances gotten from dependencyClasses in the constructor.
 
-	private _filter; // PublicArrayFilter
-	private _getConverted; // PublicArrayGetterConverter
-	private _get; // PublicArrayGetter
-	private _getAndRemove; // PublicArrayGetterRemover
-	private _insert; // PublicArrayInserter
-	private _remove; // PublicArrayRemover
-	private _replace; // PublicArrayReplacer
-	private _sort; // PublicArraySorter
+	private __filter; // PublicArrayFilter
+	private __getConverted; // PublicArrayGetterConverter
+	private __get; // PublicArrayGetter
+	private __getAndRemove; // PublicArrayGetterRemover
+	private __insert; // PublicArrayInserter
+	private __remove; // PublicArrayRemover
+	private __replace; // PublicArrayReplacer
+	private __sort; // PublicArraySorter
 
 
 	constructor(
@@ -60,10 +60,10 @@ export class PublicArray extends PublicArrayContent {
 						if (!(this[`_${property}`])) { // if property not set...
 							let className = dependencyClassLoader.__dependencyClasses[index];
 							let dependencyClass = dependencyClassLoader[`__get${className}`]();
-							this[`_${property}`] = new dependencyClass();
+							this[`__${property}`] = new dependencyClass();
 						}
-						this[`_${property}`].data = this.data;
-						return this[`_${property}`];
+						this[`__${property}`].data = this.data;
+						return this[`__${property}`];
 					};
 				}
 			}

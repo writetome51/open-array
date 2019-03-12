@@ -41,10 +41,10 @@ var PublicArray = /** @class */ (function (_super) {
                     if (!(_this["_" + property])) { // if property not set...
                         var className = dependencyClassLoader.__dependencyClasses[index];
                         var dependencyClass = dependencyClassLoader["__get" + className]();
-                        _this["_" + property] = new dependencyClass();
+                        _this["__" + property] = new dependencyClass();
                     }
-                    _this["_" + property].data = _this.data;
-                    return _this["_" + property];
+                    _this["__" + property].data = _this.data;
+                    return _this["__" + property];
                 };
             }
         });

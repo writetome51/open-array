@@ -64,7 +64,9 @@ var PublicArray = /** @class */ (function (_super) {
         return this._returnThis_after(array_move_by_index_1.moveByIndex(currentIndex, newIndex, this.data));
     };
     PublicArray.prototype.forEach = function (iterationFunction) {
-        this.data.forEach(iterationFunction);
+        for (var i = 0; i < this.data.length; ++i) {
+            iterationFunction(this.data[i], i, this.data);
+        }
     };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));

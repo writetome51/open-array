@@ -94,7 +94,9 @@ export class PublicArray extends PublicArrayContent {
 
 
 	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): void {
-		this.data.forEach(iterationFunction);
+		for (let i = 0; i < this.data.length; ++i) {
+			iterationFunction(this.data[i], i, this.data);
+		}
 	}
 
 

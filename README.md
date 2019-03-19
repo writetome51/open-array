@@ -162,11 +162,12 @@ get.byType(
 
 ```
 getConverted.toOne(
-    reducingFunction: ((previousValue: any, currentValue: any, index?, array?) => any)
+    reducingFunction: ((total: any, currentValue, currentIndex?, array?) => any),
+    initialValue?: any
 ): any
-    // reduces all values in this.data down to a single value, and returns that value.
+    // Does the same thing as Array.reduce(), but with a much better name.
 
-getConverted.each(mappingFunction: ((item, index?, array?) => any)): any[]
+getConverted.each(mappingFunction: ((currentValue, currentIndex?, array?) => any)): any[]
     // returns new array where each value in this.data is converted into something else.
 ```
 </details>

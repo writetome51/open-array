@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/public-array",
-  "version": "4.0.3",
+  "version": "4.1.0",
   "description": "A TypeScript/JavaScript class for general array manipulation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -42,7 +42,7 @@
     "@writetome51/public-array-inserter": "~3.0.2",
     "@writetome51/public-array-sorter": "~2.0.1",
     "@writetome51/public-array-replacer": "~2.0.1",
-    "@writetome51/public-array-getter-converter": "~2.0.1",
+    "@writetome51/public-array-getter-converter": "~2.0.2",
     "@writetome51/public-array-getter-remover": "~2.0.1",
     "@writetome51/public-array-filter": "~2.0.1",
     "@writetome51/array-append-prepend": "~1.0.5",

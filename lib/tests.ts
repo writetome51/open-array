@@ -40,6 +40,12 @@ arr.getConverted.each((item) => (item * 2));
 if (arraysMatch(arr.getConverted.data, arr.data)) console.log('test 3B passed');
 else console.log('test 3B FAILED');
 
+// Test 3C: test the .getConverted.toOne() method:
+// arr.data is currently [ 2, 4, 6, 8 ]
+let result = arr.getConverted.toOne((total, value) => total + value, 100);
+if (result === 120) console.log('test 3C passed');
+else console.log('test 3C FAILED');
+
 // Test 4: arr.get must be instance of PublicArrayGetter:
 if (arr.get.className && arr.get.className === 'PublicArrayGetter') console.log('test 4 passed');
 else console.log('test 4 FAILED');
@@ -214,6 +220,10 @@ else console.log('test 22 FAILED');
 
 // Test 23: make sure .moveByIndex() works:
 // arr.data is [1,2,3,4,5]
+arr.data = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9]];
 arr.moveByIndex(-1, 1);
-if (arraysMatch(arr.data, [1, 5, 2, 3, 4])) console.log('test 23 passed');
+if (arraysMatch(
+	arr.data,
+	[[0, 1], [8, 9], [2, 3], [4, 5], [6, 7]])
+) console.log('test 23 passed');
 else console.log('test 23 FAILED');

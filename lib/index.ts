@@ -1,6 +1,3 @@
-import { append, prepend } from '@writetome51/array-append-prepend';
-import { moveByIndex } from '@writetome51/array-move-by-index';
-import { setArray } from '@writetome51/set-array';
 import { PublicArrayContent } from '@writetome51/public-array-content';
 import * as dependencyClassLoader from './privy/dependencyClassLoader';
 
@@ -68,35 +65,6 @@ export class PublicArray extends PublicArrayContent {
 				}
 			}
 		);
-	}
-
-
-	// changes the value of this.data without breaking its memory reference.
-
-	set(newArray): void {
-		setArray(this.data, newArray);
-	}
-
-
-	append(values: any[]): this {
-		return this._returnThis_after(append(values, this.data));
-	}
-
-
-	prepend(values: any[]): this {
-		return this._returnThis_after(prepend(values, this.data));
-	}
-
-
-	moveByIndex(currentIndex, newIndex): this {
-		return this._returnThis_after(moveByIndex(currentIndex, newIndex, this.data));
-	}
-
-
-	forEach(iterationFunction: (currentValue, currentIndex?, entireArray?) => any): void {
-		for (let i = 0; i < this.data.length; ++i) {
-			iterationFunction(this.data[i], i, this.data);
-		}
 	}
 
 

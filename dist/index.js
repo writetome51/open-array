@@ -13,9 +13,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var array_append_prepend_1 = require("@writetome51/array-append-prepend");
-var array_move_by_index_1 = require("@writetome51/array-move-by-index");
-var set_array_1 = require("@writetome51/set-array");
 var public_array_content_1 = require("@writetome51/public-array-content");
 var dependencyClassLoader = require("./privy/dependencyClassLoader");
 /***********************
@@ -50,24 +47,6 @@ var PublicArray = /** @class */ (function (_super) {
         });
         return _this;
     }
-    // changes the value of this.data without breaking its memory reference.
-    PublicArray.prototype.set = function (newArray) {
-        set_array_1.setArray(this.data, newArray);
-    };
-    PublicArray.prototype.append = function (values) {
-        return this._returnThis_after(array_append_prepend_1.append(values, this.data));
-    };
-    PublicArray.prototype.prepend = function (values) {
-        return this._returnThis_after(array_append_prepend_1.prepend(values, this.data));
-    };
-    PublicArray.prototype.moveByIndex = function (currentIndex, newIndex) {
-        return this._returnThis_after(array_move_by_index_1.moveByIndex(currentIndex, newIndex, this.data));
-    };
-    PublicArray.prototype.forEach = function (iterationFunction) {
-        for (var i = 0; i < this.data.length; ++i) {
-            iterationFunction(this.data[i], i, this.data);
-        }
-    };
     return PublicArray;
 }(public_array_content_1.PublicArrayContent));
 exports.PublicArray = PublicArray;

@@ -33,21 +33,4 @@ export declare class PublicArray extends PublicArrayContent {
 
 	constructor(data?: any[]);
 
-
-	set(newArray: any[]): void;
-
-
-	append(values: any[]): this;
-
-
-	prepend(values: any[]): this;
-
-
-	moveByIndex(currentIndex: number, newIndex: number): this;
-
-
-	forEach(
-		iterationFunction: (currentValue: any, currentIndex?: number, entireArray?: any[]) => any
-	): void;
-
 }

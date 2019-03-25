@@ -37,8 +37,8 @@ var PublicArray = /** @class */ (function (_super) {
                     // Lazy-Loading is used to instantiate each property:
                     if (!(_this["_" + property])) { // if property not set...
                         var className = dependencyClassLoader.__dependencyClasses[index];
-                        var dependencyClass = dependencyClassLoader["__get" + className]();
-                        _this["__" + property] = new dependencyClass();
+                        var dependencyClassConstructor = dependencyClassLoader["__get" + className]();
+                        _this["__" + property] = new dependencyClassConstructor();
                     }
                     _this["__" + property].data = _this.data;
                     return _this["__" + property];

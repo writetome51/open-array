@@ -56,8 +56,8 @@ export class PublicArray extends PublicArrayContent {
 						// Lazy-Loading is used to instantiate each property:
 						if (!(this[`_${property}`])) { // if property not set...
 							let className = dependencyClassLoader.__dependencyClasses[index];
-							let dependencyClass = dependencyClassLoader[`__get${className}`]();
-							this[`__${property}`] = new dependencyClass();
+							let dependencyClassConstructor = dependencyClassLoader[`__get${className}`]();
+							this[`__${property}`] = new dependencyClassConstructor();
 						}
 						this[`__${property}`].data = this.data;
 						return this[`__${property}`];

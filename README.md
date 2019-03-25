@@ -478,13 +478,38 @@ sort.shuffle(): PublicArraySorter;
 asString(glue = ', '): string
     // Does same thing as Array.join()
     
-/************
- For all the functions below:
+append(values: any[]): this
+    // attaches values to end of this.data.
+
+prepend(values: any[]): this
+    // attaches values to beginning of this.data.
+
+moveByIndex(currentIndex, newIndex): this
+    // moves an item, identified by currentIndex, to newIndex.
+    // Both currentIndex and newIndex can be negative or positive.
+
+forEach(iterationFunction): void
+    // Behaves same as Array.forEach()
+    // iterationFunction = function(currentValue, currentIndex?, entireArray?): any
+    
+set(newArray): void
+    // Changes value of this.data to newArray without breaking its memory reference.
+    // So if there are copies of this.data, the copies will be updated as well.  
+```
+ NOTICE:  For all the methods below:  
      Any parameter called 'value' cannot be an object.
-     Any parameter called 'values' cannot contain an object.
+     Any parameter called 'values' cannot contain an object.  
      'object' does not include Arrays.  Arrays are OK, as long as they don't 
      contain objects.
-************/
+```
+firstIndexOf(value): number
+    // returns index of first instance of value in this.data. If not found, returns -1.
+
+lastIndexOf(value): number
+    // returns index of last instance of value in this.data.  If not found, returns -1.
+
+indexesOf(value): number[]
+    // returns all indexes of value in this.data. If not found, returns empty array.
 	
 has(value): boolean
     // returns true if this.data contains value.
@@ -508,13 +533,12 @@ endsWith(values: any[]): boolean
 matches(values: any[]): boolean
     // returns true if this.data matches values exactly.
     // will return false if values contains object.
-
-// For the next 3 methods:
-// testFunction is a callback with same signature as callback passed to
-// Array.filter() :
-// testFunction(currentValue, currentIndex?, entireArray?): boolean 
-// checks if currentValue passes test. If yes, it returns true.
-
+```
+For the next 3 methods:  
+testFunction is a callback with this signature :  
+`testFunction(currentValue, currentIndex?, entireArray?): boolean`  
+It checks if currentValue passes a test. If yes, it must return true.
+```
 allPass(testFunction): boolean
     // returns true if all items in this.data pass test.
 
@@ -523,33 +547,6 @@ anyPass(testFunction): boolean
 
 indexesThatPass(testFunction): number[]
     // returns indexes of all items that pass test. If none pass, returns empty array.
-
-firstIndexOf(value): number
-    // returns index of first instance of value in this.data. If not found, returns -1.
-
-lastIndexOf(value): number
-    // returns index of last instance of value in this.data.  If not found, returns -1.
-
-indexesOf(value): number[]
-    // returns all indexes of value in this.data. If not found, returns empty array.
-
-append(values: any[]): this
-    // attaches values to end of this.data.
-
-prepend(values: any[]): this
-    // attaches values to beginning of this.data.
-
-moveByIndex(currentIndex, newIndex): this
-    // moves an item, identified by currentIndex, to newIndex.
-    // Both currentIndex and newIndex can be negative or positive.
-
-forEach(iterationFunction): void
-    // Behaves same as Array.forEach()
-    // iterationFunction = function(currentValue, currentIndex?, entireArray?){...}
-    
-set(newArray): void
-    // Changes value of this.data to newArray without breaking its memory reference.
-    // So if there are copies of this.data, the copies will be updated as well.
 ``` 
 The methods below are not important to know about in order to use this  
 class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .

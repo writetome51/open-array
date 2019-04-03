@@ -46,18 +46,16 @@ export class PublicArray extends PublicArrayContent {
 		super(data);
 
 		this._createGetterAndOrSetterForEach(
-			// each of these is a public property:
-			['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'],
+
+			dependencyClassLoader.__instanceProperties,
 
 			{
 				get_getterFunction: (property, index) => {
 					return () => {
 
 						// Lazy-Loading is used to instantiate each property:
-						if (!(this[`_${property}`])) { // if property not set...
-							let className = dependencyClassLoader.__dependencyClasses[index];
-							let dependencyClassConstructor = dependencyClassLoader[`__get${className}`]();
-							this[`__${property}`] = new dependencyClassConstructor();
+						if (!(this[`__${property}`])) { // if property not set...
+							this[`__${property}`] = dependencyClassLoader.__getInstance(index);
 						}
 						this[`__${property}`].data = this.data;
 						return this[`__${property}`];

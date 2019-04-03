@@ -29,16 +29,12 @@ var PublicArray = /** @class */ (function (_super) {
     ) {
         if (data === void 0) { data = []; }
         var _this = _super.call(this, data) || this;
-        _this._createGetterAndOrSetterForEach(
-        // each of these is a public property:
-        ['filter', 'getConverted', 'get', 'getAndRemove', 'insert', 'remove', 'replace', 'sort'], {
+        _this._createGetterAndOrSetterForEach(dependencyClassLoader.__instanceProperties, {
             get_getterFunction: function (property, index) {
                 return function () {
                     // Lazy-Loading is used to instantiate each property:
-                    if (!(_this["_" + property])) { // if property not set...
-                        var className = dependencyClassLoader.__dependencyClasses[index];
-                        var dependencyClassConstructor = dependencyClassLoader["__get" + className]();
-                        _this["__" + property] = new dependencyClassConstructor();
+                    if (!(_this["__" + property])) { // if property not set...
+                        _this["__" + property] = dependencyClassLoader.__getInstance(index);
                     }
                     _this["__" + property].data = _this.data;
                     return _this["__" + property];

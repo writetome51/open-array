@@ -5,23 +5,74 @@ export let __instanceProperties = [
 ];
 
 
-// These must be listed in same order as __instanceProperties.
+// These must be in the same order as __instanceProperties.
 
-export let __dependencyClasses = [
-	{name: 'PublicArrayFilter', path: '@writetome51/public-array-filter'},
-	{name: 'PublicArrayGetterConverter', path: '@writetome51/public-array-getter-converter'},
-	{name: 'PublicArrayGetter', path: '@writetome51/public-array-getter'},
-	{name: 'PublicArrayGetterRemover', path: '@writetome51/public-array-getter-remover'},
-	{name: 'PublicArrayInserter', path: '@writetome51/public-array-inserter'},
-	{name: 'PublicArrayRemover', path: '@writetome51/public-array-remover'},
-	{name: 'PublicArrayReplacer', path: '@writetome51/public-array-replacer'},
-	{name: 'PublicArraySorter', path: '@writetome51/public-array-sorter'}
+export let __classNames = [
+	'PublicArrayFilter',
+	'PublicArrayGetterConverter',
+	'PublicArrayGetter',
+	'PublicArrayGetterRemover',
+	'PublicArrayInserter',
+	'PublicArrayRemover',
+	'PublicArrayReplacer',
+	'PublicArraySorter'
 ];
 
 
+export let __classGetter = {
+
+	getPublicArrayFilter: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-filter').PublicArrayFilter;
+	},
+
+
+	getPublicArrayGetterConverter: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-getter-converter').PublicArrayGetterConverter;
+	},
+
+
+	getPublicArrayGetter: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-getter').PublicArrayGetter;
+	},
+
+
+	getPublicArrayGetterRemover: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-getter-remover').PublicArrayGetterRemover;
+	},
+
+
+	getPublicArrayInserter: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-inserter').PublicArrayInserter;
+	},
+
+
+	getPublicArrayRemover: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-remover').PublicArrayRemover;
+	},
+
+
+	getPublicArrayReplacer: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-replacer').PublicArrayReplacer;
+	},
+
+
+	getPublicArraySorter: function () {
+		// @ts-ignore
+		return require('@writetome51/public-array-sorter').PublicArraySorter;
+	},
+
+};
+
+
 export function __getInstance(dependencyIndex) {
-	let dependency = __dependencyClasses[dependencyIndex];
-	// @ts-ignore
-	let constructorFn = require(dependency.path)[dependency.name];
-	return new constructorFn();
+	let className = __classNames[dependencyIndex];
+	let dependencyClass = __classGetter[`get${className}`]();
+	return new dependencyClass();
 }

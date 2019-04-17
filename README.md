@@ -60,9 +60,11 @@ filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)):
     // Narrows down this.data to only the values that pass testFunction.
 
 filter.byType(
-    type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined'
+    type: 'number' | 'boolean' | 'string' | 'array' | 'object' | 'function' | 'undefined' | 'null'
 ): PublicArrayFilter
     // Narrows down this.data to only the values that are the specified type.
+    // Here, 'null' is considered its own type, separate from 'object'.
+    // You can also pass 'array' as a type.  Passing 'object' will match with objects and arrays.
 ```
 </details>
 
@@ -148,9 +150,11 @@ get.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): IV
     // returns any item that passes testFunction.
         
 get.byType(
-    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
+    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined' | 'null'
 ):  IValueIndexPair[]
     // returns any item that is passed type.
+    // Here, 'null' is considered its own type, separate from 'object'.
+    // You can also pass 'array' as a type.  Passing 'object' will match with objects and arrays.
 ```
 </details>
 
@@ -247,9 +251,11 @@ getAndRemove.byTest(
     // removes and returns any item that passes testFunction.
 
 getAndRemove.byType(
-    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
+    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined' | 'null'
 ): IValueIndexPair[]
     // removes and returns any item that is passed type.
+    // Here, 'null' is considered its own type, separate from 'object'.
+    // You can also pass 'array' as a type.  Passing 'object' will match with objects and arrays.
 ```
 </details>
 
@@ -356,8 +362,10 @@ remove.byTest(testFunction: (currentValue, currentIndex?, array?) => boolean): P
     // if currentValue passes test, it is removed.
 
 remove.byType(
-    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined'
+    type: 'object' | 'array' | 'number' | 'string' | 'boolean' | 'function' | 'undefined' | 'null'
 ): PublicArrayRemover
+    // Here, 'null' is considered its own type, separate from 'object'.
+    // You can also pass 'array' as a type.  Passing 'object' will match with objects and arrays.
 ```
 </details>
 

@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/public-array",
-  "version": "4.1.3",
+  "version": "5.0.0",
   "description": "A TypeScript/JavaScript class for general array manipulation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -33,20 +33,20 @@
   },
   "homepage": "https://github.com/writetome51/public-array#readme",
   "devDependencies": {
-    "@writetome51/arrays-match": "~1.0.5"
+    "@writetome51/arrays-match": "~1.0.6"
   },
   "dependencies": {
-    "@writetome51/public-array-remover": "~2.0.1",
-    "@writetome51/public-array-content": "~2.1.1",
-    "@writetome51/public-array-getter": "~2.0.1",
-    "@writetome51/public-array-inserter": "~3.0.2",
-    "@writetome51/public-array-sorter": "~2.0.1",
-    "@writetome51/public-array-replacer": "~2.0.1",
-    "@writetome51/public-array-getter-converter": "~2.0.2",
-    "@writetome51/public-array-getter-remover": "~2.0.1",
-    "@writetome51/public-array-filter": "~2.0.1",
+    "@writetome51/public-array-remover": "~3.0.0",
+    "@writetome51/public-array-content": "~2.1.2",
+    "@writetome51/public-array-getter": "~3.0.1",
+    "@writetome51/public-array-inserter": "~3.0.3",
+    "@writetome51/public-array-sorter": "~2.0.2",
+    "@writetome51/public-array-replacer": "~2.0.2",
+    "@writetome51/public-array-getter-converter": "~2.0.3",
+    "@writetome51/public-array-getter-remover": "~3.0.0",
+    "@writetome51/public-array-filter": "~3.0.0",
     "@writetome51/array-append-prepend": "~1.0.5",
-    "@writetome51/array-move-by-index": "~1.0.1",
+    "@writetome51/array-move-by-index": "~1.0.2",
     "@writetome51/set-array": "~1.0.2"
   }
 }

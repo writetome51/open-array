@@ -2,9 +2,10 @@
 
 A TypeScript/JavaScript class for general array manipulation.
 
-The main reason you would use PublicArray is if you hate JavaScript's built-in Array methods,  
-like `.slice()`, `.splice()`, `.push()`, and `.shift()`.  PublicArray has much clearer and expressive   
-method names, and a lot more of them.  Examples:
+The main reason you would use PublicArray is if you hate JavaScript's built-in  
+Array methods, like `.slice()`, `.splice()`, `.push()`, and `.shift()`.  
+PublicArray has much clearer and expressive method names, and a lot more of  
+them. Examples:
 ```
 let arr = new PublicArray([1,2,3,4,5,6]);
 arr.remove.tail(2); // arr.data is now [1,2,3,4]
@@ -13,7 +14,8 @@ arr.remove.head(1); // arr.data is now [2,3,4]
 if (arr.notEmpty) arr.prepend([10,11]); // arr.data is now [10,11,2,3,4]
 arr.append([100,200,300]); // arr.data is now [10,11,2,3,4,100,200,300]
 ```
-To actually see or get the array itself, you must access PublicArray's `.data` property:
+To actually see or get the array itself, you must access PublicArray's `.data`  
+property:
 
 `console.log(arr.data); // logs '[10,11,2,3,4,100,200,300]' `
 
@@ -33,8 +35,8 @@ constructor(data? = [])  // 'data' becomes the array the class manipulates.
 &nbsp;&nbsp;&nbsp;&nbsp;<small>length of this.data</small>
 
 #### copy: PublicArray (read-only)  
-&nbsp;&nbsp;&nbsp;&nbsp;<small>a copy of the PublicArray instance, containing an independent copy of 
-this.data that can be manipulated separately.</small>
+&nbsp;&nbsp;&nbsp;&nbsp;<small>A copy of the PublicArray instance, containing an independent copy of this.data that can be   
+&nbsp;&nbsp;&nbsp;&nbsp; manipulated separately.</small>
 
 #### isEmpty: boolean (read-only) 
 &nbsp;&nbsp;&nbsp;&nbsp;<small>true if this.data is empty</small>
@@ -272,7 +274,7 @@ insert.at(index, values: any[]): PublicArrayInserter
     // make room.  If negative, existing items ending at that index will be pushed to the   
     // left to make room. 
 
-insert.middle(values: any[], offset = 0): PublicArrayInserter
+insert.middle(values: any[], offset? = 0): PublicArrayInserter
     // inserts values in middle of this.data .
     // By default, if this.data has odd number of items, values will be inserted just before the
     // middle item. If you want to change the insert position, set the optional offset parameter 
@@ -483,7 +485,7 @@ sort.shuffle(): PublicArraySorter;
 <summary>view methods</summary>
 
 ```
-asString(glue = ', '): string
+asString(glue? = ', '): string
     // Does same thing as Array.join()
     
 append(values: any[]): this

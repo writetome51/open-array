@@ -1,4 +1,12 @@
 import { PublicArrayContent } from '@writetome51/public-array-content';
+import { PublicArrayFilter } from '@writetome51/public-array-filter';
+import { PublicArrayGetterConverter } from '@writetome51/public-array-getter-converter';
+import { PublicArrayGetter } from '@writetome51/public-array-getter';
+import { PublicArrayGetterRemover } from '@writetome51/public-array-getter-remover';
+import { PublicArrayInserter } from '@writetome51/public-array-inserter';
+import { PublicArrayRemover } from '@writetome51/public-array-remover';
+import { PublicArrayReplacer } from '@writetome51/public-array-replacer';
+import { PublicArraySorter } from '@writetome51/public-array-sorter';
 
 
 /***********************
@@ -12,14 +20,14 @@ import { PublicArrayContent } from '@writetome51/public-array-content';
 
 export declare class PublicArray extends PublicArrayContent {
 
-	readonly filter: any;
-	readonly getConverted: any;
-	readonly get: any;
-	readonly getAndRemove: any;
-	readonly insert: any;
-	readonly remove: any;
-	readonly replace: any;
-	readonly sort: any;
+	readonly filter: PublicArrayFilter;
+	readonly getConverted: PublicArrayGetterConverter;
+	readonly get: PublicArrayGetter;
+	readonly getAndRemove: PublicArrayGetterRemover;
+	readonly insert: PublicArrayInserter;
+	readonly remove: PublicArrayRemover;
+	readonly replace: PublicArrayReplacer;
+	readonly sort: PublicArraySorter;
 
 	private __filter;
 	private __getConverted;

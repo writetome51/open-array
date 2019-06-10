@@ -6,7 +6,7 @@ The main reason you would use PublicArray is if you hate JavaScript's built-in
 Array methods, like `.slice()`, `.splice()`, `.push()`, and `.shift()`.  
 PublicArray has much clearer and expressive method names, and a lot more of  
 them. Examples:
-```
+```ts
 let arr = new PublicArray([1,2,3,4,5,6]);
 arr.remove.tail(2); // arr.data is now [1,2,3,4]
 arr.remove.head(1); // arr.data is now [2,3,4]
@@ -20,8 +20,8 @@ property:
 `console.log(arr.data); // logs '[10,11,2,3,4,100,200,300]' `
 
 ## Constructor
-```
-constructor(data? = [])  // 'data' becomes the array the class manipulates.
+```ts
+constructor(data? = [])  // 'data' is assigned to this.data .
 ```
 
 ## Properties
@@ -57,7 +57,7 @@ Helpful tidbit:  These properties all contain their own `.data` property, which 
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 filter.byTest(testFunction: ((currentValue, currentIndex?, array?) => boolean)): PublicArrayFilter
     // Narrows down this.data to only the values that pass testFunction.
 
@@ -76,7 +76,7 @@ filter.byType(
 <details>
 <summary>view methods</summary>
 
-```     
+```ts     
 get.copy(): any[]
     // Returns independent copy of this.data .
 
@@ -166,7 +166,7 @@ get.byType(
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 getConverted.toOne(
     reducingFunction: ((total: any, currentValue, currentIndex?, array?) => any),
     initialValue?: any
@@ -184,7 +184,7 @@ getConverted.each(mappingFunction: ((currentValue, currentIndex?, array?) => any
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 getAndRemove.byIndex(index): any
     // removes and returns item identified by passed index.  index can be negative or positive.
 
@@ -267,7 +267,7 @@ getAndRemove.byType(
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 insert.at(index, values: any[]): PublicArrayInserter
     // inserts values at index.  index can be negative or positive.
     // If positive, existing items beginning at that index will be pushed to the right to   
@@ -288,7 +288,7 @@ insert.middle(values: any[], offset? = 0): PublicArrayInserter
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 remove.byIndex(index): PublicArrayRemover
     // index can be negative or positive.
 
@@ -377,7 +377,7 @@ remove.byType(
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 replace.at(index, newValue): PublicArrayReplacer
     // Replaces item at index with newValue.  index can be negative or positive.
 
@@ -458,7 +458,7 @@ replace.allWithOne(values: any[], newValue): PublicArrayReplacer
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 sort.alphabetize(): PublicArraySorter;
     // No item in this.data gets modified, but each is treated as a string during the sorting.
 
@@ -484,7 +484,7 @@ sort.shuffle(): PublicArraySorter;
 <details>
 <summary>view methods</summary>
 
-```
+```ts
 asString(glue? = ', '): string
     // Does same thing as Array.join()
     
@@ -511,7 +511,7 @@ set(newArray): void
      Any parameter called 'values' cannot contain an object.  
      'object' does not include Arrays.  Arrays are OK, as long as they don't 
      contain objects.
-```
+```ts
 firstIndexOf(value): number
     // returns index of first instance of value in this.data. If not found, returns -1.
 
@@ -548,7 +548,7 @@ For the next 3 methods:
 testFunction is a callback with this signature :  
 `testFunction(currentValue, currentIndex?, entireArray?): boolean`  
 It checks if currentValue passes a test. If yes, it must return true.
-```
+```ts
 allPass(testFunction): boolean
     // returns true if all items in this.data pass test.
 
@@ -560,7 +560,7 @@ indexesThatPass(testFunction): number[]
 ``` 
 The methods below are not important to know about in order to use this  
 class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .
-``` 
+```ts
 protected   _createGetterAndOrSetterForEach(
 		propertyNames: string[],
 		configuration: IGetterSetterConfiguration
@@ -592,12 +592,12 @@ protected   _returnThis_after(voidExpression: any) : this
     // voidExpression is executed, then function returns this.
     // Even if voidExpression returns something, the returned data isn't used.
 
-protected   _runMethod_and_returnThis(
-    callingObject, 
-    method: Function, 
-    methodArgs: any[], 
-    additionalAction?: Function // takes the result returned by method as an argument.
-) : this
+protected   _errorIfPropertyHasNoValue(
+                property: string, // can contain dot-notation, i.e., 'property.subproperty'
+                propertyNameInError? = ''
+            ) : void
+    // If value of this[property] is undefined or null, it triggers fatal error:
+    // `The property "${propertyNameInError}" has no value.`
 ```
 </details>
 
@@ -606,7 +606,7 @@ protected   _runMethod_and_returnThis(
 <details>
 <summary>view examples</summary>
 
-```
+```ts
 // changing the array content:
 arr.data = [10,20,30,40];
 
@@ -652,7 +652,7 @@ PublicArray has a large number of dependencies.  You should keep this in mind wh
 the performance of your app. For example, say your code only uses PublicArray's `.replace` property  
 and nothing else.  Since `.replace` is an instance of [PublicArrayReplacer](https://github.com/writetome51/public-array-replacer#publicarrayreplacer), you may get a small  
 performance boost if you just instantiate PublicArrayReplacer instead of PublicArray:
-```
+```ts
 let replace = new PublicArrayReplacer(array);
 replace.adjacentAt(2, ['just', 'an', 'example']);
 ```
@@ -663,14 +663,12 @@ PublicArray<--[PublicArrayContent](https://github.com/writetome51/public-array-c
 
 ## Installation
 
-You must have npm installed first.  Then, in the command line:
-
 ```bash
 npm install @writetome51/public-array
 ```
 
 ## Loading
-```
+```ts
 // If using TypeScript:
 import { PublicArray } from '@writetome51/public-array';
 // If using ES5 JavaScript:
